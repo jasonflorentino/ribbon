@@ -1,0 +1,25 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.InputType {
+  width: 100%;
+  padding: .5rem 1.5rem;
+  border-radius: 2rem;
+  border: none;
+  @include main_font;
+  @include font_size_paragraph;
+  color: $color_bw_dark;
+  
+  &::placeholder {
+    color: $color_bw_light;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px $color_blue_primary;
+  }
+
+  @include tablet {
+    width: auto;
+  }
+}

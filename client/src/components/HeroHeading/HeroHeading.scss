@@ -1,0 +1,9 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.HeroHeading {
+  @include main_font;
+  @include font_size_heroHeading;
+  color: $color_bw_dark;
+  letter-spacing: -1px;
+}

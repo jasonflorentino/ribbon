@@ -1,0 +1,28 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.ButtonPrimary {
+  width: 100%;
+  padding: .5rem 1.5rem;
+  background-color: $color_blue_primary;
+  color: white;
+  @include main_font;
+  @include font_size_paragraph;
+  border: none;
+  border-radius: 2rem;
+  transition: all .2s;
+
+  &:hover {
+    transform: translate(0rem,-0.15rem);
+    background-color: darken($color_blue_primary, 5%);
+    box-shadow: 0 .25rem .75rem 0 rgba(0,0,30,.2);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  @include tablet {
+    width: auto;
+  }
+}
