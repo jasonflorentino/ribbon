@@ -2,7 +2,7 @@ module.exports = [
   {
     gift_id: "",
     image: "essential-crew-neck.jpeg",
-    price: "90",
+    price: 90,
     color: null,
     size: null,
     description: null,
@@ -11,7 +11,7 @@ module.exports = [
   {
     gift_id: "",
     image: "47-clean-up.jpeg",
-    price: "40",
+    price: 40,
     color: null,
     size: null,
     description: null,
@@ -20,7 +20,7 @@ module.exports = [
   {
     gift_id: "",
     image: "klean-kanteen.jpeg",
-    price: "42",
+    price: 42,
     color: null,
     size: null,
     description: null,
@@ -29,7 +29,7 @@ module.exports = [
   {
     gift_id: "",
     image: "essential-tshirt-white.jpeg",
-    price: "40",
+    price: 40,
     color: "White",
     size: null,
     description: null,
@@ -38,7 +38,7 @@ module.exports = [
   {
     gift_id: "",
     image: "essential-tshirt-black.jpeg",
-    price: "40",
+    price: 40,
     color: "Black",
     size: null,
     description: null,
@@ -47,7 +47,7 @@ module.exports = [
   {
     gift_id: "",
     image: "neoskin-notebook.jpeg",
-    price: "20",
+    price: 20,
     color: "Black",
     size: null,
     description: null,
@@ -56,7 +56,7 @@ module.exports = [
   {
     gift_id: "",
     image: "my-sticker-pack.jpeg",
-    price: "4",
+    price: 4,
     color: null,
     size: null,
     description: null,

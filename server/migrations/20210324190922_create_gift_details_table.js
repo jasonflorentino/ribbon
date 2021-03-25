@@ -3,7 +3,7 @@ exports.up = function (knex) {
     table.increments("id").primary();
     table.integer("gift_id").notNullable().unsigned().references("id").inTable("gifts").onUpdate("CASCADE").onDelete("CASCADE");
     table.string("image");
-    table.string("price").notNullable();
+    table.decimal("price").notNullable();
     table.string("color");
     table.string("size");
     table.string("description");
