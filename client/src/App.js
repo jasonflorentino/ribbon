@@ -7,7 +7,6 @@ import './styles/App.scss';
 function App()
 {
   const [confirmPassword, setConfirmPassword] = useState("");
-  const handleConfirmPasswordChange = e => setConfirmPassword(e.target.value);
 
   return (
     <div className="App">
@@ -17,7 +16,7 @@ function App()
         name={"confirmPassword"}
         value={confirmPassword} 
         placeholder={"Confirm password"} 
-        onChange={handleConfirmPasswordChange}  
+        onChange={e => setConfirmPassword(e.target.value)}  
       />
       <ButtonPrimary text="Sign up" />
     </div>
