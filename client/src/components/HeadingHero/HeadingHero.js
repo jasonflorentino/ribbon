@@ -1,9 +1,9 @@
 import "./HeadingHero.scss";
 
-function HeadingHero({text})
+function HeadingHero({text, className})
 {
   return (
-    <h1 className="HeadingHero">
+    <h1 className={`HeadingHero ${className}`}>
       {text}
     </h1>
   )

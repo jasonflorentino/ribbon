@@ -1,17 +1,19 @@
 import FadeIn from "react-fade-in";
-import Header from '../../components/Header/Header';
-import HeadingHero from '../../components/HeadingHero/HeadingHero';
+import Header from "../../components/Header/Header";
+import HeadingHero from "../../components/HeadingHero/HeadingHero";
+import Balloons from "../../assets/balloons.svg";
 
 import "./Home.scss";
 
 function Home()
 { 
   return (
-    <div className="Main">
+    <div className="Home">
       <FadeIn>
         <Header color="positive" login={true} signUp={true} />
-        <main>
-          <HeadingHero text="You go, gifter!" />
+        <main className="Home__main">
+          <HeadingHero text="You go, gifter!" className="Home__heading" />
+          <img className="Home__balloons" src={Balloons} alt="Balloon graphic" />
         </main>
       </FadeIn>
     </div>
