@@ -2,6 +2,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import List from './pages/List/List';
+import SignUp from './pages/SignUp/SignUp';
 import './styles/App.scss';
 
 function App()
@@ -13,8 +14,11 @@ function App()
             <Route path="/" exact render={(props) => {
               return <Home {...props} />}} 
             />
-            <Route path="/login/" render={(props) => {
+            <Route path="/login" render={(props) => {
               return <Login {...props} />}}  
+            />
+            <Route path="/signup" render={(props) => {
+              return <SignUp {...props} />}}  
             />
             <Route path="/user/:userUuid/list/:listId" render={(props) => {
               return <List {...props} />}}  
