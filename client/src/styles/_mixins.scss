@@ -4,6 +4,11 @@
  * LAYOUT
  * ====== */
 
+@mixin layout_page_size {
+  width: 100%;
+  height: 100vmax;
+}
+
 @mixin layout_vert_margin {
   margin-top: .5rem;
   margin-bottom: .5rem;

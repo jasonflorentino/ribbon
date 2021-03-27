@@ -2,12 +2,12 @@
 @use "../../styles/mixins" as *;
 
 .Login {
-  width: 100%;
-  height: 100%;
+  @include layout_page_size;
   background-color: $color_red_primary;
 
   &__main {
     display: flex;
     justify-content: center;
+    padding: 10vmin 0;
   }
 }
