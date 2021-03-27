@@ -2,5 +2,9 @@
 @use "../../styles/mixins" as *;
 
 .Logo {
-  height: 2rem;
+  height: 1.5rem;
+
+  @include tablet {
+    height: 2rem;
+  }
 }

@@ -3,16 +3,33 @@
 
 .Header {
   width: 100%;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
 
+  @include tablet {
+    padding: 1.5rem 2rem;
+  }
+
   &__Login {
+    display: none;
     margin-right: 2rem;
     padding: 0.5rem 1rem;
     color: $color_bw_dark;
     text-decoration: none;
     font-weight: 700;
+
+    @include tablet {
+      display:initial;
+    }
+  }
+
+  &__actions {
+    display: none;
+
+    @include tablet {
+      display:initial;
+    }
   }
 }

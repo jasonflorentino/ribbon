@@ -25,6 +25,10 @@
   @include tablet {
     font-size: 5rem;
   }
+
+  @include desktop {
+    font-size: 6rem;
+  }
 }
 
 @mixin font_size_heading1 {

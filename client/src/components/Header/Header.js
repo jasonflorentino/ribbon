@@ -9,9 +9,12 @@ function Header({color, login, signUp, history})
   return (
     <header className={`Header`}>
       <Logo color={color} />
-      <div>
+      <div className="Header__actions">
         {login && <Link className="Header__Login" to="/login">Login</Link>}
-        {signUp && <ButtonPrimary text="Sign up" onClick={() => history.push("/signup")} />}
+        {signUp && <ButtonPrimary 
+          text="Sign up" 
+          onClick={() => history.push("/signup")} 
+        />}
       </div>
     </header>
   )
