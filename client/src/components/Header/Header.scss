@@ -1,0 +1,17 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.Header {
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  &__Login {
+    margin-right: 3rem;
+    color: $color_bw_dark;
+    text-decoration: none;
+    font-weight: 700;
+  }
+}
