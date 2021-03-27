@@ -1,0 +1,30 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.FormLogin {
+  padding: 2rem;
+  width: 24rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  background-color: $color_yellow_light;
+
+  &__heading {
+    @include font_size_heading2;
+    text-align: center;
+    color: $color_bw_dark;
+    margin: 1rem 0 2.5rem 0;
+  }
+
+  &__forgotPassword {
+    margin-left: auto;
+    color: $color_bw_medium;
+    text-decoration: none;
+    @include font_size_caption;
+    font-weight: 700;
+  }
+
+  &__button {
+    margin-top: 3rem;
+  }
+}

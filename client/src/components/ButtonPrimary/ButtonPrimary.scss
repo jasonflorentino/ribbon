@@ -3,6 +3,7 @@
 
 .ButtonPrimary {
   width: 100%;
+  @include layout_vert_margin;
   padding: .5rem 1.5rem;
   background-color: $color_blue_primary;
   color: white;

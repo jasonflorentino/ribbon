@@ -1,10 +1,10 @@
 import "./ButtonPrimary.scss";
 
-function ButtonPrimary({text, onClick})
+function ButtonPrimary({text, onClick, className})
 {
   return (
     <button
-      className="ButtonPrimary"
+      className={`ButtonPrimary ${className}`} 
       onClick={onClick}
     >
       {text}
