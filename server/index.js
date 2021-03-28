@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
+const jwt = require("jsonwebtoken");
 const utils = require("./utils");
 const loginRoutes = require("./routes/loginRoutes");
 
@@ -8,6 +8,7 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 const JWT_SECRET = process.env.JWT_SECRET;
+const publicRoutes = ["/login", "/signup"]
 
 /*============
  * MIDDLEWARE 
@@ -15,7 +16,6 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(cors());
 app.use(express.json());
-app.use(cookieParser());
 
 // Log incoming requests
 app.use((req, _res, next) => {
@@ -23,11 +23,39 @@ app.use((req, _res, next) => {
   next();
 })
 
-// utils.getToken()
+// Verify JSON web token
+app.use((req, res, next) => {
+  if (publicRoutes.includes(req.url)) next();
+  else {
+    if (!req.headers.authorization) {
+      res.status(403).json({ message: "Not authorized: Authorization header required." });
+      return utils.logResponse(res);
+    }
+    const token = utils.getToken(req);
+    if (!token) {
+      res.status(403).json({ message: "Not authorized: No token." });
+      utils.logResponse(res); 
+    } else {
+      try {
+        req.decode = jwt.verify(token, JWT_SECRET)
+        next();
+      } catch (err) {
+        console.log("JWT Verify Error:", err.message);
+        res.status(403).json({ message: "Not authorized: Invalid token." });
+        utils.logResponse(res);
+      }
+    }
+  }
+})
 
 /*========
  * ROUTES 
  *========*/
+
+app.get("/check-auth", (req, res) => {
+  res.status(200).json(req.decode);
+  utils.logResponse(res);
+});
 
 app.use("/login", loginRoutes);
 

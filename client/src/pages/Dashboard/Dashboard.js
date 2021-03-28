@@ -1,20 +1,20 @@
 import FadeIn from "react-fade-in";
 import Header from '../../components/Header/Header';
 
-import "./SignUp.scss";
+import "./Dashboard.scss";
 
-function SignUp()
+function Dashboard()
 { 
   return (
-    <div className="SignUp">
+    <div className="Dashboard">
       <FadeIn>
-        <Header color="negative" login={true} />
+        <Header color="positive" logout={true} />
         <main>
-          sign up
+          Dashboard
         </main>
       </FadeIn>
     </div>
   )
 }
 
-export default SignUp;
+export default Dashboard;

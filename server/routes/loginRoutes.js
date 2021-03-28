@@ -9,11 +9,10 @@ const secret = process.env.JWT_SECRET;
 
 router.post("/", (req, res) => {
   const { email, password } = req.body;
-
+  
   if (!email || !password) {
     res.status(400).json({ message: "An email and password must be provided" })
-    utils.logResponse(res);
-    return;
+    return utils.logResponse(res);
   }
 
   User
@@ -23,16 +22,16 @@ router.post("/", (req, res) => {
       const matched = user.attributes;
       const incomingPass = CryptoJS.SHA1(password + matched.uuid);
       if (matched.password === incomingPass.toString(CryptoJS.enc.Base64)) {
-        const resBody = { token: jwt.sign({ user: matched.uuid }, secret) }
+        const resBody = { token: jwt.sign({ user: matched.uuid }, secret, {expiresIn: '1h'}) }
         res.status(200).json(resBody);
         utils.logResponse(res);
         return;
       }
-      res.status(403).json({message: "The password provided is incorrect."})
+      res.status(403).json({message: "The password provided is incorrect"})
       utils.logResponse(res);
     })
     .catch(() => {
-      res.status(400).json({ message: "Couldn't find a user with this email." })
+      res.status(400).json({ message: "Couldn't find a user with this email" })
       utils.logResponse(res)
     });
 })

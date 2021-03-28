@@ -5,7 +5,7 @@ import FormLogin from "../../components/FormLogin/FormLogin"
 import Header from "../../components/Header/Header"
 import "./Login.scss";
 
-function Login({setIsAuthenticated})
+function Login({setIsAuthenticated, setIsLoading, history})
 {
   const [isLoginError, setIsLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -22,6 +22,8 @@ function Login({setIsAuthenticated})
         sessionStorage.setItem("authToken", res.data.token);
         setIsAuthenticated(true);
         setIsLoginError(false);
+        setIsLoading(true);
+        history.push("/")
       })
       .catch((err) => {
         setErrorMessage(err.response.data.message);
@@ -34,7 +36,7 @@ function Login({setIsAuthenticated})
     <>
       <div className="Login">
         <FadeIn>
-          <Header color="negative" login={false} signUp={true} />
+          <Header color="negative" signUp={true} />
           <main className="Login__main">
             <FormLogin 
               requestLogin={requestLogin}

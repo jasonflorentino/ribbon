@@ -19,7 +19,12 @@ function logResponse(res) {
   console.log(`(${getCurrentTime()}) Sent:     ${res.statusCode} - ${res.statusMessage}`);
 }
 
+function getToken(req) {
+  return req.headers.authorization.split(" ")[1];
+}
+
 module.exports = {
   logRequest: logRequest,
-  logResponse: logResponse
+  logResponse: logResponse,
+  getToken: getToken
 };

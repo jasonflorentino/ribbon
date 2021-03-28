@@ -1,6 +1,6 @@
 import "./List.scss";
 
-function List()
+function List({history, isAuthenticated})
 {
   return (
     <main>
