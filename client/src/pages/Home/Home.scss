@@ -8,6 +8,7 @@
     height: 80vmin;
     position: relative;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   }
@@ -16,6 +17,11 @@
     text-align: center;
     position: relative;
     z-index: 10;
+  }
+
+  &__subheading {
+    margin-top: 1rem;
+    color: $color_bw_dark;
   }
 
   &__balloons {

@@ -13,6 +13,7 @@ function Home()
         <Header color="positive" login={true} signUp={true} />
         <main className="Home__main">
           <HeadingHero text="You go, gifter!" className="Home__heading" />
+          <h2 className="Home__subheading">The gifts they want with no loose ends.</h2>
           <img className="Home__balloons" src={Balloons} alt="Balloon graphic" />
         </main>
       </FadeIn>
