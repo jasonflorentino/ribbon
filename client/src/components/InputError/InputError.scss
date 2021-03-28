@@ -1,0 +1,10 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.InputError {
+  margin-top: -.25rem;
+  margin-bottom: .25rem;
+  @include font_size_caption;
+  color: $color_red_primary;
+  text-align: right;
+}
