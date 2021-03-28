@@ -23,4 +23,12 @@
   @include tablet {
     width: auto;
   }
+
+  &--error {
+    box-shadow: 0 0 0 2px $color_red_primary;
+
+    &:focus {
+      box-shadow: 0 0 0 2px $color_red_primary;
+    }
+  }
 }

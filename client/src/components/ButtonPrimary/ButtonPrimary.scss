@@ -1,6 +1,15 @@
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
 
+@keyframes shake {
+  0% {transform: translate(1%, 0);}
+  20% {transform: translate(-3%, 0);}
+  40% {transform: translate(3%, 0);}
+  60% {transform: translate(-2%, 0);}
+  80% {transform: translate(2%, 0);}
+  100% {transform: translate(-1%, 0);}
+}
+
 .ButtonPrimary {
   width: 100%;
   @include layout_vert_margin;
@@ -26,5 +35,10 @@
 
   @include tablet {
     width: auto;
+  }
+
+  &--error {
+    animation-name: shake;
+    animation-duration: .4s;
   }
 }

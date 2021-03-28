@@ -1,10 +1,10 @@
 import "./ButtonPrimary.scss";
 
-function ButtonPrimary({text, onClick, className})
+function ButtonPrimary({text, onClick, error, className})
 {
   return (
     <button
-      className={`ButtonPrimary ${className}`} 
+      className={`ButtonPrimary ${error ? "ButtonPrimary--error" : ""} ${className}`} 
       onClick={onClick}
     >
       {text}
