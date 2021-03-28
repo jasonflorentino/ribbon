@@ -1,17 +1,21 @@
 const express = require('express');
 const cors = require('cors');
-const utils = require("./utils/utils");
-require('dotenv').config();
+const cookieParser = require('cookie-parser');
+const utils = require("./utils");
+const loginRoutes = require("./routes/loginRoutes");
 
+require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 8080;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 /*============
  * MIDDLEWARE 
  *============*/
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+app.use(cookieParser());
 
 // Log incoming requests
 app.use((req, _res, next) => {
@@ -19,8 +23,12 @@ app.use((req, _res, next) => {
   next();
 })
 
+// utils.getToken()
+
 /*========
  * ROUTES 
  *========*/
+
+app.use("/login", loginRoutes);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`))
