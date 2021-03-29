@@ -33,21 +33,19 @@ function Login({setIsAuthenticated, setIsLoading, history})
   };
 
   return (
-    <>
-      <div className="Login">
-        <FadeIn>
-          <Header color="negative" signUp={true} />
-          <main className="Login__main">
-            <FormLogin 
-              requestLogin={requestLogin}
-              isLoginError={isLoginError}
-              setIsLoginError={setIsLoginError} 
-              errorMessage={errorMessage}  
-            />
-          </main>
-        </FadeIn>
-      </div>
-    </>
+    <div className="Login">
+      <FadeIn className="Login__fadeContainer">
+        <Header color="negative" signUp={true} />
+        <main className="Login__main">
+          <FormLogin 
+            requestLogin={requestLogin}
+            isLoginError={isLoginError}
+            setIsLoginError={setIsLoginError} 
+            errorMessage={errorMessage}  
+          />
+        </main>
+      </FadeIn>
+    </div>
   )
 }
 

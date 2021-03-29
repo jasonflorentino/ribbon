@@ -1,10 +1,11 @@
 @use "./variables" as *;
 
 .App {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   flex-direction: column;
 
+  color: $color_bw_dark;
   background-color: $color_red_light;
 }

@@ -3,6 +3,14 @@
 
 .Home {
   @include layout_page_size;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__fadeContainer {
+    width: 100%;
+    max-width: 1280px;
+  }
 
   &__main {
     height: 80vmin;

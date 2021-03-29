@@ -9,7 +9,7 @@ function Home()
 { 
   return (
     <div className="Home">
-      <FadeIn>
+      <FadeIn className="Home__fadeContainer">
         <Header color="positive" login={true} signUp={true} />
         <main className="Home__main">
           <HeadingHero text="You go, gifter!" className="Home__heading" />

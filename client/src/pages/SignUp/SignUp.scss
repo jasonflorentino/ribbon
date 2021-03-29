@@ -3,5 +3,14 @@
 
 .SignUp {
   @include layout_page_size;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   background-color: $color_red_primary;
+
+  &__fadeContainer {
+    width: 100%;
+    max-width: 1280px;
+  }
 }

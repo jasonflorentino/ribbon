@@ -7,7 +7,7 @@ function SignUp()
 { 
   return (
     <div className="SignUp">
-      <FadeIn>
+      <FadeIn className="SignUp__fadeContainer">
         <Header color="negative" login={true} />
         <main>
           sign up
