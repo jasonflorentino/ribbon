@@ -1,0 +1,9 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.ConnectionsSideBar {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

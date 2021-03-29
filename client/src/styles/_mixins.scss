@@ -38,9 +38,16 @@
 
 @mixin font_size_heading1 {
   font-size: 2.5rem;
-
+  line-height: 2.5rem;
+  
   @include tablet {
+    font-size: 3rem;
+    line-height: 3rem;
+  }
+  
+  @include desktop {
     font-size: 4rem;
+    line-height: 4rem;
   }
 }
 
@@ -80,8 +87,20 @@
  * MEDIA BREAKPOINTS
  * ================= */
 
+@mixin tablet_500 {
+  @media (min-width: $media_size_tablet - 180px) {
+    @content;
+  }
+}
+
 @mixin tablet {
   @media (min-width: $media_size_tablet) {
+    @content;
+  }
+}
+
+@mixin tablet_800 {
+  @media (min-width: $media_size_tablet + 120px) {
     @content;
   }
 }

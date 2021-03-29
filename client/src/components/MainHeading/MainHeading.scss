@@ -1,0 +1,6 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.MainHeading {
+  @include font_size_heading1;
+}

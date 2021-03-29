@@ -1,0 +1,8 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.DashboardHeader {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}

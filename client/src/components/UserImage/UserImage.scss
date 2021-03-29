@@ -1,0 +1,57 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.UserImage {
+  object-fit: cover;
+  border-radius: 50%;
+
+  &--main {
+    @extend .UserImage;
+    width: 6rem;
+    margin-right: 1rem;
+  
+    @include tablet {
+      width: 7.5rem;
+      margin-right: 1.25rem;
+    }
+    
+    @include desktop {
+      width: 9rem;
+      margin-right: 1.5rem;
+    }
+  }
+
+  &--sidebar {
+    @extend .UserImage;
+    width: 6rem;
+  
+    @include tablet {
+      width: 4.5rem;
+      margin-bottom: .25rem;
+    }
+
+    @include tablet_800 {
+      width: 5.5rem;
+    }
+    
+    @include desktop {
+      width: 6.5rem;
+    }
+  }
+  
+  &__name {
+    margin-bottom: .25rem;
+    text-align: center;
+    font-size: .6rem;
+
+    @include tablet_800 {
+      margin-bottom: .5rem;
+      font-size: .7rem;
+    }
+
+    @include desktop {
+      margin-bottom: .8rem;
+      font-size: .8rem;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.ItemGrid {
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+}

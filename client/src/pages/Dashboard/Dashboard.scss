@@ -3,4 +3,31 @@
 
 .Dashboard {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__fadeContainer {
+    max-width: 1280px;
+  }
+
+  &__main {
+    display: flex;
+  }
+}
+
+.main {
+  &__sidebar {
+    display: none;
+
+    @include tablet {
+      display: flex;
+      justify-content: center;
+      flex: 1 1 0;
+    }
+  }
+  
+  &__content {
+    flex: 5 1 0;
+  }
 }
