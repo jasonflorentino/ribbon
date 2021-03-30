@@ -6,7 +6,7 @@
 
 @mixin layout_page_size {
   width: 100%;
-  height: 100vmax;
+  height: 100vh;
 }
 
 @mixin layout_vert_margin {
@@ -25,7 +25,8 @@
 }
 
 @mixin font_size_headingHero {
-  font-size: 3rem;
+  font-size: 3.5rem;
+  line-height: 3.5rem;
 
   @include tablet {
     font-size: 5rem;
@@ -52,10 +53,12 @@
 }
 
 @mixin font_size_heading2 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
+  line-height: 1.5rem;
 
   @include tablet {
     font-size: 2rem;
+    line-height: 2.3rem;
   }
 }
 

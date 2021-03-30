@@ -34,7 +34,7 @@ function FormLogin({requestLogin, isLoginError, errorMessage, setIsLoginError})
   }
 
   return (
-    <FadeIn>
+    <FadeIn childClassName="FormLogin__fadeContainer">
       <form
         className="FormLogin"
         onSubmit={e => handleSubmit(e)}
