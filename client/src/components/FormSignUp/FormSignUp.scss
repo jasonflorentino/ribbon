@@ -1,0 +1,32 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.FormSignUp {
+  padding: 1rem;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1rem;
+  background-color: $color_yellow_light;
+  
+  @include tablet {
+    padding: 2rem;
+    width: 24rem;
+  }
+
+  &__fadeContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__heading {
+    @include font_size_heading2;
+    text-align: center;
+    color: $color_bw_dark;
+    margin: 1rem 0 2.5rem 0;
+  }
+
+  &__button {
+    margin-top: 3rem;
+  }
+}

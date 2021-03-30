@@ -12,5 +12,14 @@
   &__fadeContainer {
     width: 100%;
     max-width: 1280px;
+    height: 100%;
+  }
+
+  &__main {
+    height: 100%;
+    padding-top: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const utils = require("./utils");
 const loginRoutes = require("./routes/loginRoutes");
 const listRoutes = require("./routes/listRoutes");
+const signupRoutes = require("./routes/signupRoutes");
 
 require('dotenv').config();
 const app = express();
@@ -66,7 +67,8 @@ app.get("/check-auth", (req, res) => {
   utils.logResponse(res);
 });
 
-app.use("/login", loginRoutes);
 app.use("/list", listRoutes);
+app.use("/login", loginRoutes);
+app.use("/signup", signupRoutes);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`))
