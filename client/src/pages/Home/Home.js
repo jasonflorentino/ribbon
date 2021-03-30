@@ -1,6 +1,7 @@
 import FadeIn from "react-fade-in";
 import Header from "../../components/Header/Header";
 import HeadingHero from "../../components/HeadingHero/HeadingHero";
+import MobileHomeActions from "../../components/MobileHomeActions/MobileHomeActions";
 import Balloons from "../../assets/balloons.svg";
 
 import "./Home.scss";
@@ -16,6 +17,7 @@ function Home()
           <h2 className="Home__subheading">The gifts they want with no loose ends.</h2>
           <img className="Home__balloons" src={Balloons} alt="Balloon graphic" />
         </main>
+        <MobileHomeActions login={true} signUp={true} />
       </FadeIn>
     </div>
   )

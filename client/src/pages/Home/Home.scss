@@ -10,10 +10,18 @@
   &__fadeContainer {
     width: 100%;
     max-width: 1280px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include tablet {
+      justify-content: space-between;
+    }
   }
 
   &__main {
-    height: 80vmin;
+    height: 50vh;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -28,13 +36,23 @@
   }
 
   &__subheading {
+    @include font_size_heading2;
     margin-top: 1rem;
+    text-align: center;
     color: $color_bw_dark;
+
+    @include tablet {
+      margin-top: 1.5rem;
+    }
+
+    @include desktop {
+      margin-top: 2.5rem;
+    }
   }
 
   &__balloons {
     z-index: 1;
-    width: 100%;
+    width: 95%;
     max-width: 60rem;
     position: absolute;
     top: 50%;

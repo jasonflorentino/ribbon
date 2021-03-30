@@ -1,0 +1,23 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.MobileHomeActions {
+  display: flex;
+  padding: 1rem;
+
+  @include tablet {
+    display: none;
+  }
+
+  &__login {
+    width: 100%;
+    padding: .5rem 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color_bw_dark;
+    text-decoration: none;
+    @include font_size_paragraph;
+    font-weight: 700;
+  }
+}
