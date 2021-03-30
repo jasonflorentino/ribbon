@@ -6,6 +6,7 @@ exports.seed = function (knex) {
     .then(() => knex("gifts").pluck("id"))
     .then((giftIds) => {
       return giftDetailsData.map((giftDetail, i) => {
+        giftIds.sort();
         giftDetail.gift_id = giftIds[i];
         return giftDetail;
       });
