@@ -3,6 +3,7 @@ const cors = require('cors');
 const jwt = require("jsonwebtoken");
 const utils = require("./utils");
 const loginRoutes = require("./routes/loginRoutes");
+const listRoutes = require("./routes/listRoutes");
 
 require('dotenv').config();
 const app = express();
@@ -22,6 +23,14 @@ app.use((req, _res, next) => {
   utils.logRequest(req);
   next();
 })
+
+// Serve resquests for static assets
+app.use("/public", (req, res, next) => {
+  express.static("public")(req, res, next);
+  utils.logResponse(res);
+  return;
+});
+
 
 // Verify JSON web token
 app.use((req, res, next) => {
@@ -58,5 +67,6 @@ app.get("/check-auth", (req, res) => {
 });
 
 app.use("/login", loginRoutes);
+app.use("/list", listRoutes);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`))

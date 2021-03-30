@@ -2,15 +2,12 @@ import ItemCard from "../ItemCard/ItemCard";
 import ItemCardCreate from "../ItemCardCreate/ItemCardCreate";
 import "./ItemGrid.scss";
 
-function ItemGrid() {
+function ItemGrid({items})
+{
   return (
     <ul className="ItemGrid">
       <ItemCardCreate />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
-      <ItemCard />
+      {items.map(item => <ItemCard key={`gift${item.id}`} itemData={item} />)}
     </ul>
   )
 }
