@@ -19,6 +19,11 @@ $desktop_radius: 1rem;
     padding: 1rem;
     width: 25%;
   }
+
+  &__link {
+    text-decoration: none;
+    color: $color_bw_dark;
+  }
 }
 
 .card {

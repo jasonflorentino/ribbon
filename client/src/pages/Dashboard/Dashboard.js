@@ -6,10 +6,11 @@ import Header from "../../components/Header/Header";
 import DashboardHeader from "./DashboardHeader";
 import ConnectionsSideBar from "../../components/ConnectionsSideBar/ConnectionsSideBar";
 import ItemGrid from "../../components/ItemGrid/ItemGrid";
+import ItemDetails from "../ItemDetails/ItemDetails";
 import utils from "../../utils";
 import "./Dashboard.scss";
 
-function Dashboard({userDetails, setIsAuthenticated})
+function Dashboard({userDetails, setIsAuthenticated, location})
 { 
   const [listItems, setListItems] = useState([]);
   useEffect(() => {
@@ -35,7 +36,11 @@ function Dashboard({userDetails, setIsAuthenticated})
         <Header color="positive" logout={true} setIsAuthenticated={setIsAuthenticated} />
         <main className="Dashboard__main">
           <section className="main__sidebar">
-            <ConnectionsSideBar connections={connections} />
+            <ConnectionsSideBar 
+              connections={connections} 
+              location={location} 
+              userDetails={userDetails}
+            />
           </section>
           <section className="main__content">
             <Switch>
@@ -44,7 +49,7 @@ function Dashboard({userDetails, setIsAuthenticated})
                 <ItemGrid items={listItems} />
               </Route>
               <Route path="/item/:id">
-                <h1>Item details</h1>
+                <ItemDetails />
               </Route>
             </Switch>
           </section>
