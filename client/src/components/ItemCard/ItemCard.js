@@ -4,7 +4,7 @@ import "./ItemCard.scss";
 
 function ItemCard({itemData})
 {
-  const {name, id, gift_detail: {image, price} = {}} = itemData; 
+  const {name, id, image, price} = itemData; 
   return (
     <li className="ItemCard">
       <Link to={`/item/${id}`} className="ItemCard__link">

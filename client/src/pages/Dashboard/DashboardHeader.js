@@ -7,7 +7,12 @@ function DashboardHeader({userImage})
 { 
   return (
     <header className="DashboardHeader">
-      <UserImage role="main" imgSrc={utils.getPublicUrl(userImage)} altText="User image" />
+      <UserImage 
+        role="main" 
+        linkPath="/user/profile/id"
+        imgSrc={utils.getPublicUrl(userImage)} 
+        altText="User image" 
+      />
       <MainHeading text="Your wish list" />
     </header>
   )

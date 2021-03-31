@@ -7,6 +7,7 @@ import DashboardHeader from "./DashboardHeader";
 import ConnectionsSideBar from "../../components/ConnectionsSideBar/ConnectionsSideBar";
 import ItemGrid from "../../components/ItemGrid/ItemGrid";
 import ItemDetails from "../ItemDetails/ItemDetails";
+import UserList from "../UserList/UserList";
 import utils from "../../utils";
 import "./Dashboard.scss";
 
@@ -22,11 +23,15 @@ function Dashboard({userDetails, setIsAuthenticated, location})
   }, [])
 
   const [connections, setConnections] = useState([]);
+  const [allConnections, setAllConnections] = useState([]);
   useEffect(() => {
     const url = process.env.REACT_APP_API_URL + "/connections"
     axios
       .get(url, {headers: utils.getAuthHeader()})
-      .then(res => {setConnections(res.data)})      
+      .then(res => {
+        setConnections(res.data)
+        setAllConnections(res.data);
+      })      
       .catch(err => {console.log(err)})
   }, [])
 
@@ -44,13 +49,26 @@ function Dashboard({userDetails, setIsAuthenticated, location})
           </section>
           <section className="main__content">
             <Switch>
-              <Route path="/" exact>
-                <DashboardHeader userImage={userDetails.image} />
-                <ItemGrid items={listItems} />
-              </Route>
-              <Route path="/item/:id">
-                <ItemDetails />
-              </Route>
+              <Route path="/" exact render={_props => {
+                setConnections(allConnections);
+                return (
+                  <>
+                    <DashboardHeader userImage={userDetails.image} />
+                    <ItemGrid items={listItems} owner={true} />
+                  </>
+                )
+              }} />
+              <Route path="/item/:id" render={props => {
+                return <ItemDetails {...props} />
+              }}/>
+              <Route path="/user/:id" render={props => {
+                return <UserList 
+                  {...props} 
+                  setConnections={setConnections}
+                  allConnections={allConnections}
+                  setAllConnections={setAllConnections}
+                />
+              }}/>
             </Switch>
           </section>
         </main>
