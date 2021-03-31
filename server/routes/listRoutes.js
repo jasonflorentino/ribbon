@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
         .then(list => {
           Gift
             .where({ list_id: list.id })
-            .fetchAll({withRelated: ['gift_detail']})
+            .fetchAll({withRelated: ["gift_detail"]})
             .then(gifts => {
               res.status(200).json(gifts);
               utils.logResponse(res);
