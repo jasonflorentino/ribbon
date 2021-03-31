@@ -6,6 +6,7 @@ module.exports = [
     interests: "Back-end is life.",
     allergies: "Saying it \"My-SeeQuel\"",
     sizes: "Shirt M, Shoe 10.5, API Surface: Large",
+    image: "nolan.jpeg"
   },
   {
     first_name: "Daniil",
@@ -14,6 +15,7 @@ module.exports = [
     interests: "Cats, Tacos, Secret DJing",
     allergies: "Bad tacos",
     sizes: "Tortilla (corn): 4, Tortilla (flour): 7,",
+    image: "daniil.jpeg"
   },
   {
     first_name: "Michael",
@@ -22,6 +24,7 @@ module.exports = [
     interests: "Bagels, Guitar Hero, More Bagels",
     allergies: "Regular bread",
     sizes: "BrainStation Sweater: S",
+    image: "michael.jpeg"
   },
   {
     first_name: "Anvit",
@@ -30,5 +33,6 @@ module.exports = [
     interests: "Animal Crossing, Mechanical Keyboards, Vue.JS",
     allergies: "React.JS",
     sizes: "String Instrument: XS, Animal Crossing Storage: 1600",
+    image: "anvit.jpeg"
   },
 ];

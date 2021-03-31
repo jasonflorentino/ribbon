@@ -1,21 +1,21 @@
 import UserImage from "../../components/UserImage/UserImage";
 import MainHeading from "../../components/MainHeading/MainHeading";
 import utils from "../../utils";
-import "./DashboardHeader.scss";
+import "./UserListHeader.scss";
 
-function DashboardHeader({userImage})
+function UserListHeader({firstName, userImage})
 { 
   return (
-    <header className="DashboardHeader">
+    <header className="UserListHeader">
       <UserImage 
         role="main" 
         linkPath="/user/profile/id"
         imgSrc={utils.getPublicUrl(userImage)} 
         altText="User image" 
       />
-      <MainHeading text="Your wish list" />
+      <MainHeading text={`${firstName}'s wish list`} />
     </header>
   )
 }
 
-export default DashboardHeader;
+export default UserListHeader;

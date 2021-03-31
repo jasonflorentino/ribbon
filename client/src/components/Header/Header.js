@@ -4,11 +4,20 @@ import ButtonPrimary from "../ButtonPrimary/ButtonPrimary";
 import Logo from "../Logo/Logo";
 import "./Header.scss";
 
-function Header({color, login, signUp, logout, history})
+function Header({color, login, signUp, logout, history, setIsAuthenticated})
 {
   const handleLogout = () => {
-    sessionStorage.removeItem("authToken");
-    window.location.reload()
+    new Promise((resolve, reject) => {
+      try {
+        sessionStorage.removeItem("authToken");
+        setIsAuthenticated(false);
+        resolve();
+      } catch {
+        reject();
+      }
+    }).then(() => {
+      history.push("/")
+    })
   }
 
   return (

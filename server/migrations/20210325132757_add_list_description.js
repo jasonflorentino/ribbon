@@ -1,6 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.table("lists", (table) => {
-      table.string("description");
+      table.text("description");
   });
 };
 

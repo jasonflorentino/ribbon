@@ -4,6 +4,15 @@
 .UserImage {
   object-fit: cover;
   border-radius: 50%;
+  transition: all .2s;
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: $color_bw_dark;
+  }
 
   &--main {
     @extend .UserImage;
@@ -36,6 +45,11 @@
     
     @include desktop {
       width: 6.5rem;
+    }
+
+    &:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 0 2px $color_blue_primary;
     }
   }
   

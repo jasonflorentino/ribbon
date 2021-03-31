@@ -6,9 +6,9 @@ exports.up = function (knex) {
     table.string("last_name").notNullable();
     table.date("date_of_birth").notNullable();
     table.string("image").defaultTo("default_user.jpg");
-    table.string("interests");
-    table.string("allergies");
-    table.string("sizes");
+    table.string("interests", 400);
+    table.string("allergies", 400);
+    table.string("sizes", 400);
   });
 };
 

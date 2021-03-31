@@ -3,4 +3,9 @@
 
 .MainHeading {
   @include font_size_heading1;
+
+  &__price {
+    padding-left: 1rem;
+    color: $color_red_primary;
+  }
 }

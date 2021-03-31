@@ -1,12 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
-import FadeIn from "react-fade-in";
-import Header from '../../components/Header/Header';
 import FormSignUp from '../../components/FormSignUp/FormSignUp';
 
 import "./SignUp.scss";
 
-function SignUp({setIsAuthenticated, history})
+function SignUp({setIsAuthenticated, history, setIsLoading})
 { 
   const [isSignUpError, setIsSignUpError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -21,8 +19,9 @@ function SignUp({setIsAuthenticated, history})
       .then((res) => {
         sessionStorage.setItem("authToken", res.data.token);
         setIsSignUpError(false);
-        history.push("/")
+        setIsLoading(true);
         setIsAuthenticated(true);
+        history.push("/")
       })
       .catch((err) => {
         setErrorMessage(err.response.data.message);
@@ -32,19 +31,12 @@ function SignUp({setIsAuthenticated, history})
   }
 
   return (
-    <div className="SignUp">
-      <FadeIn className="SignUp__fadeContainer">
-        <Header color="negative" login={true} />
-        <main className="SignUp__main">
-          <FormSignUp 
-            requestSignUp={requestSignUp}
-            isSignUpError={isSignUpError}
-            setIsSignUpError={setIsSignUpError}
-            errorMessage={errorMessage}
-          />
-        </main>
-      </FadeIn>
-    </div>
+    <FormSignUp 
+      requestSignUp={requestSignUp}
+      isSignUpError={isSignUpError}
+      setIsSignUpError={setIsSignUpError}
+      errorMessage={errorMessage}
+    />
   )
 }
 
