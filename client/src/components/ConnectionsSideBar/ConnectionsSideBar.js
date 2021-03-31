@@ -19,6 +19,7 @@ function ConnectionsSideBar({connections, location, userDetails})
       {showSelf && <UserImage 
         role="sidebar"
         name="Your list"
+        linkPath="/"
         imgSrc={utils.getPublicUrl(userDetails.image)} 
         altText="Your image"  
       />}
@@ -28,6 +29,7 @@ function ConnectionsSideBar({connections, location, userDetails})
           key={"user" + uuid}
           role="sidebar"
           name={fullName}
+          linkPath={`/user/${uuid}`}
           imgSrc={utils.getPublicUrl(image)} 
           altText={fullName} 
         />

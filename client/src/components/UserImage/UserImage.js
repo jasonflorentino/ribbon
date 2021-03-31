@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import "./UserImage.scss";
 
-function UserImage({role, name, imgSrc, altText}) {
+function UserImage({role, name, linkPath, imgSrc, altText}) {
 
   let classText = "";
   switch (role) {
@@ -20,8 +21,10 @@ function UserImage({role, name, imgSrc, altText}) {
 
   return (
     <>
-      <img className={classText} src={imgSrc} alt={altText} />
-      {role === "sidebar" && <span className="UserImage__name">{name}</span>}
+      <Link className="UserImage__link" to={linkPath}>
+        <img className={classText} src={imgSrc} alt={altText} />
+        {role === "sidebar" && <span className="UserImage__name">{name}</span>}
+      </Link>
     </>
   )
 }

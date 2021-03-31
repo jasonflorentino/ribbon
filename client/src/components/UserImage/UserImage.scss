@@ -6,6 +6,13 @@
   border-radius: 50%;
   transition: all .2s;
 
+  &__link {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: $color_bw_dark;
+  }
+
   &--main {
     @extend .UserImage;
     width: 6rem;
