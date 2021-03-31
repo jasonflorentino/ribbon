@@ -6,12 +6,12 @@ exports.up = function (knex) {
     table.decimal("price").notNullable();
     table.string("color");
     table.string("size");
-    table.string("description");
+    table.text("description");
     table.string("category");
     table.string("product_sku");
     table.string("vendor");
     table.string("brand");
-    table.string("external_link");
+    table.string("external_link", 400);
   });
 };
 
