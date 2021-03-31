@@ -28,7 +28,10 @@ function App()
       .then(res => {
         if (res.status === 200) {
           setIsAuthenticated(true);
-          setUserDetails({ id: res.data.user });
+          setUserDetails({
+            id: res.data.user,
+            image: res.data.image 
+          });
           setIsLoading(false);
         } else {
           throw new Error("Bad response");

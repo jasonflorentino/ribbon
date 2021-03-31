@@ -1,13 +1,19 @@
-import userImage from "../../assets/user-image.png";
 import UserImage from "../UserImage/UserImage";
+import utils from "../../utils";
 import "./ConnectionsSideBar.scss";
 
-function ConnectionsSideBar() {
+function ConnectionsSideBar({connections}) {
   return (
     <aside className="ConnectionsSideBar">
-      <UserImage role="sidebar" imgSrc={userImage} altText="User image" />
-      <UserImage role="sidebar" imgSrc={userImage} altText="User image" />
-      <UserImage role="sidebar" imgSrc={userImage} altText="User image" />
+      {connections.map(({user_id, first_name, last_name, image}) => {
+        const fullName = utils.makeFullName(first_name, last_name)
+        return <UserImage 
+          key={"user" + user_id}
+          role="sidebar"
+          name={fullName}
+          imgSrc={utils.getPublicUrl(image)} 
+          altText={fullName} />
+      })}
     </aside>
   )
 }

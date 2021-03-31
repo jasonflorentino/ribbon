@@ -1,6 +1,6 @@
 import "./UserImage.scss";
 
-function UserImage({role, imgSrc, altText}) {
+function UserImage({role, name, imgSrc, altText}) {
 
   let classText = "";
   switch (role) {
@@ -21,7 +21,7 @@ function UserImage({role, imgSrc, altText}) {
   return (
     <>
       <img className={classText} src={imgSrc} alt={altText} />
-      {role === "sidebar" && <span className="UserImage__name">Johnny English</span>}
+      {role === "sidebar" && <span className="UserImage__name">{name}</span>}
     </>
   )
 }

@@ -5,6 +5,8 @@ const utils = require("./utils");
 const loginRoutes = require("./routes/loginRoutes");
 const listRoutes = require("./routes/listRoutes");
 const signupRoutes = require("./routes/signupRoutes");
+const connectionRoutes = require("./routes/connectionRoutes");
+const Bookshelf = require('./bookshelf');
 
 require('dotenv').config();
 const app = express();
@@ -63,10 +65,18 @@ app.use((req, res, next) => {
  *========*/
 
 app.get("/check-auth", (req, res) => {
-  res.status(200).json(req.decode);
-  utils.logResponse(res);
+  const query = function(uuid) {
+    return `SELECT image FROM people AS p INNER JOIN users as u WHERE p.user_id = u.id AND u.uuid = '${uuid}';`
+  }
+  Bookshelf.knex.raw(query(req.decode.user))
+  .then(arr => {
+    req.decode.image = arr[0][0].image;
+    res.status(200).json(req.decode)
+    utils.logResponse(res); 
+  })
 });
 
+app.use("/connections", connectionRoutes);
 app.use("/list", listRoutes);
 app.use("/login", loginRoutes);
 app.use("/signup", signupRoutes);
