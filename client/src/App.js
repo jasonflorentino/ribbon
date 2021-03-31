@@ -50,11 +50,19 @@ function App()
             <Route path="/" render={(props) => {
               if (isAuthenticated) 
               {
-                return <Dashboard {...props} isAuthenticated={isAuthenticated} userDetails={userDetails} />
+                return <Dashboard 
+                  {...props} 
+                  isAuthenticated={isAuthenticated} 
+                  setIsAuthenticated={setIsAuthenticated} 
+                  userDetails={userDetails} 
+                />
               } 
               else 
               {
-                return <Home setIsAuthenticated={setIsAuthenticated} setIsLoading={setIsLoading} />
+                return <Home 
+                  setIsAuthenticated={setIsAuthenticated} 
+                  setIsLoading={setIsLoading} 
+                />
               }
               }} 
             />

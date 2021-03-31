@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Switch, Route } from "react-router-dom";
 import axios from "axios";
 import FadeIn from "react-fade-in";
 import Header from "../../components/Header/Header";
@@ -8,7 +9,7 @@ import ItemGrid from "../../components/ItemGrid/ItemGrid";
 import utils from "../../utils";
 import "./Dashboard.scss";
 
-function Dashboard({userDetails})
+function Dashboard({userDetails, setIsAuthenticated})
 { 
   const [listItems, setListItems] = useState([]);
   useEffect(() => {
@@ -31,14 +32,21 @@ function Dashboard({userDetails})
   return (
     <div className="Dashboard">
       <FadeIn className="Dashboard__fadeContainer">
-        <Header color="positive" logout={true} />
+        <Header color="positive" logout={true} setIsAuthenticated={setIsAuthenticated} />
         <main className="Dashboard__main">
           <section className="main__sidebar">
             <ConnectionsSideBar connections={connections} />
           </section>
           <section className="main__content">
-            <DashboardHeader userImage={userDetails.image} />
-            <ItemGrid items={listItems} />
+            <Switch>
+              <Route path="/" exact>
+                <DashboardHeader userImage={userDetails.image} />
+                <ItemGrid items={listItems} />
+              </Route>
+              <Route path="/item/:id">
+                <h1>Item details</h1>
+              </Route>
+            </Switch>
           </section>
         </main>
       </FadeIn>
