@@ -6,7 +6,7 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import "./styles/App.scss";
 import axios from "axios";
 
-function App()
+function App({history})
 {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -36,9 +36,11 @@ function App()
         setIsLoading(false);
       })
       .catch(err => {
-        console.log("Mount Error:", err.message);
         setIsLoading(false);
         setIsAuthenticated(false);
+        if (window.location.pathname !== "/") {
+          window.location.replace("/");
+        }
       })
   }, [isAuthenticated])
 
