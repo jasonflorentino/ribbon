@@ -1,2 +1,59 @@
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
+
+.ItemDetails {
+  
+  &__header {
+    @include side_padding;
+    display: flex;
+    flex-direction: column;
+
+    @include tablet {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &__main {
+    @include side_padding;
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    @include desktop {
+      flex-direction: row;
+      padding-top: 2rem;
+    }
+  }
+
+  &__image {
+    width: 90vw;
+    height: 90vw;
+    object-fit: cover;
+    border-radius: 1rem;
+
+    @include tablet_500 {
+      width: 40vw;
+      height: 40vw;
+    }
+
+    @include tablet {
+      width: 45vw;
+      height: 45vw;
+    }
+
+    @include desktop {
+      width: 30rem;
+      height: 30rem;
+    }
+  }
+
+  &__description {
+    padding-top: 1rem;
+
+    @include desktop {
+      padding-top: 0;
+      padding-left: 1rem;
+    }
+  }
+}

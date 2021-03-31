@@ -1,8 +1,11 @@
 import "./MainHeading.scss";
 
-function MainHeading({text}) {
+function MainHeading({text, price}) {
   return (
-    <h1 className="MainHeading">{text}</h1>
+    <h1 className="MainHeading">
+      {text}
+      {price && <span className="MainHeading__price">${price}</span>}
+    </h1>
   )
 }
 
