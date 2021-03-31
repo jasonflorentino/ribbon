@@ -6,12 +6,12 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import "./styles/App.scss";
 import axios from "axios";
 
-function App({history})
+function App()
 {
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
-
+  
   useEffect(() => {
     const token = sessionStorage.getItem("authToken");
     if (!token) return setIsLoading(false);
