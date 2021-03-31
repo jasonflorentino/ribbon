@@ -1,11 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
-import FadeIn from "react-fade-in";
-import FormLogin from "../../components/FormLogin/FormLogin"
-import Header from "../../components/Header/Header"
+import FormLogin from "../../components/FormLogin/FormLogin";
 import "./Login.scss";
 
-function Login({setIsAuthenticated, setIsLoading, history})
+function Login({setIsAuthenticated, history, setIsLoading})
 {
   const [isLoginError, setIsLoginError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -18,34 +16,26 @@ function Login({setIsAuthenticated, setIsLoading, history})
         password: password,
       })
       .then((res) => {
-        if (res.data.error) return setIsLoginError(true);
         sessionStorage.setItem("authToken", res.data.token);
-        setIsAuthenticated(true);
         setIsLoginError(false);
         setIsLoading(true);
+        setIsAuthenticated(true);
         history.push("/")
       })
       .catch((err) => {
-        setErrorMessage(err.response.data.message);
+        setErrorMessage(err.response && err.response.data.message);
         setIsLoginError(true);
         return;
       });
   };
 
   return (
-    <div className="Login">
-      <FadeIn className="Login__fadeContainer">
-        <Header color="negative" signUp={true} />
-        <main className="Login__main">
-          <FormLogin 
-            requestLogin={requestLogin}
-            isLoginError={isLoginError}
-            setIsLoginError={setIsLoginError} 
-            errorMessage={errorMessage}  
-          />
-        </main>
-      </FadeIn>
-    </div>
+    <FormLogin 
+      requestLogin={requestLogin}
+      isLoginError={isLoginError}
+      setIsLoginError={setIsLoginError} 
+      errorMessage={errorMessage}  
+    />
   )
 }
 
