@@ -5,7 +5,7 @@ import ItemGrid from "../../components/ItemGrid/ItemGrid";
 import utils from "../../utils";
 import "./UserList.scss";
 
-function UserList({match, setConnections, allConnections})
+function UserList({match, setConnections, allConnections, userDetails})
 {
   const id = match.params.id;
   const [items, setItems] = useState([]);
@@ -33,7 +33,7 @@ function UserList({match, setConnections, allConnections})
   return (
     <>
       <UserListHeader firstName={user.first_name} userImage={user.image} />
-      <ItemGrid items={items} owner={false} />
+      <ItemGrid items={items} owner={false} userDetails={userDetails} />
     </>
   )
 }

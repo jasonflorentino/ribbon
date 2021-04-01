@@ -27,6 +27,7 @@ function App()
           setIsAuthenticated(true);
           setUserDetails({
             id: res.data.user,
+            first_name: res.data.first_name,
             image: res.data.image 
           });
         } else {

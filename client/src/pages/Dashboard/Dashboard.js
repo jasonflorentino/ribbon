@@ -67,6 +67,7 @@ function Dashboard({userDetails, setIsAuthenticated, location})
                   setConnections={setConnections}
                   allConnections={allConnections}
                   setAllConnections={setAllConnections}
+                  userDetails={userDetails}
                 />
               }}/>
             </Switch>
