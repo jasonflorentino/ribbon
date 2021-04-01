@@ -6,76 +6,76 @@ import Header from "../../components/Header/Header";
 import DashboardHeader from "./DashboardHeader";
 import ConnectionsSideBar from "../../components/ConnectionsSideBar/ConnectionsSideBar";
 import ItemGrid from "../../components/ItemGrid/ItemGrid";
+import Loading from "../../components/Loading/Loading";
 import ItemDetails from "../ItemDetails/ItemDetails";
 import UserList from "../UserList/UserList";
 import utils from "../../utils";
 import "./Dashboard.scss";
 
-function Dashboard({userDetails, setIsAuthenticated, location})
+function Dashboard({userDetails, setIsAuthenticated})
 { 
+  const [loading, setLoading] = useState(true);
   const [listItems, setListItems] = useState([]);
-  useEffect(() => {
-    const url = process.env.REACT_APP_API_URL + "/list"
-    axios
-      .get(url, {headers: utils.getAuthHeader()})
-      .then(res => {setListItems(res.data)})
-      .catch(err => {console.log(err)})
-  }, [])
-
   const [connections, setConnections] = useState([]);
-  const [allConnections, setAllConnections] = useState([]);
+
   useEffect(() => {
-    const url = process.env.REACT_APP_API_URL + "/connections"
-    axios
-      .get(url, {headers: utils.getAuthHeader()})
-      .then(res => {
-        setConnections(res.data)
-        setAllConnections(res.data);
-      })      
-      .catch(err => {console.log(err)})
+    setLoading(true);
+    const listUrl = process.env.REACT_APP_API_URL + "/list"
+    const connectsUrl = process.env.REACT_APP_API_URL + "/connections"
+    
+    axios.all([
+      axios.get(listUrl, {headers: utils.getAuthHeader()}),
+      axios.get(connectsUrl, {headers: utils.getAuthHeader()})
+    ])
+    .then(axios.spread((listRes, connectsRes) => {
+      setListItems(listRes.data);
+      setConnections(connectsRes.data);
+    }))
+    .then(() => {
+      setLoading(false);
+    })
+    .catch(err => {console.log(err)})
   }, [])
 
-  return (
-    <div className="Dashboard">
-      <FadeIn className="Dashboard__fadeContainer">
-        <Header color="positive" logout={true} setIsAuthenticated={setIsAuthenticated} />
-        <main className="Dashboard__main">
-          <section className="main__sidebar">
-            <ConnectionsSideBar 
-              connections={connections} 
-              location={location} 
-              userDetails={userDetails}
-            />
-          </section>
-          <section className="main__content">
-            <Switch>
-              <Route path="/" exact render={_props => {
-                setConnections(allConnections);
-                return (
-                  <>
-                    <DashboardHeader userImage={userDetails.image} />
-                    <ItemGrid items={listItems} owner={true} />
-                  </>
-                )
-              }} />
-              <Route path="/item/:id" render={props => {
-                return <ItemDetails {...props} />
-              }}/>
-              <Route path="/user/:id" render={props => {
-                return <UserList 
-                  {...props} 
-                  setConnections={setConnections}
-                  allConnections={allConnections}
-                  setAllConnections={setAllConnections}
+  return loading ? <Loading /> :
+    (
+      <>
+        <div className="Dashboard">
+          <FadeIn className="Dashboard__fadeContainer">
+            <Header color="positive" logout={true} setIsAuthenticated={setIsAuthenticated} />
+            <main className="Dashboard__main">
+              <section className="main__sidebar">
+                <ConnectionsSideBar 
+                  connections={connections} 
                   userDetails={userDetails}
                 />
-              }}/>
-            </Switch>
-          </section>
-        </main>
-      </FadeIn>
-    </div>
-  )
+              </section>
+              <section className="main__content">
+                <Switch>
+                  <Route path="/" exact render={_props => {
+                    return (
+                      <>
+                        <DashboardHeader userImage={userDetails.image} />
+                        <ItemGrid items={listItems} owner={true} />
+                      </>
+                    )
+                  }} />
+                  <Route path="/item/:id" render={props => {
+                    return <ItemDetails {...props} loading={loading} setLoading={setLoading} />
+                  }}/>
+                  <Route path="/user/:id" render={props => {
+                    return <UserList 
+                      {...props} 
+                      userDetails={userDetails}
+                    />
+                  }}/>
+                </Switch>
+              </section>
+            </main>
+          </FadeIn>
+        </div>
+      </>
+    )
 }
 
 export default Dashboard;

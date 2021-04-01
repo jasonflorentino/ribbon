@@ -2,16 +2,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import UserListHeader from "./UserListHeader";
 import ItemGrid from "../../components/ItemGrid/ItemGrid";
+import Loading from "../../components/Loading/Loading";
 import utils from "../../utils";
 import "./UserList.scss";
 
-function UserList({match, setConnections, allConnections, userDetails})
+function UserList({match, userDetails})
 {
   const id = match.params.id;
+  const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const [user, setUser] = useState({});
 
-  const fetchData = () => {
+  useEffect(() => {
     const url = process.env.REACT_APP_API_URL + `/user/${id}`;
     axios
       .get(url, {headers: utils.getAuthHeader()})
@@ -19,21 +21,24 @@ function UserList({match, setConnections, allConnections, userDetails})
         setItems(res.data.items);
         setUser(res.data.user);
       })
+      .then(() => {
+        setLoading(false);
+      })
       .catch(err => {
         console.log("UserList FetchData():", err);
       })
-  }
-
-  useEffect(() => {
-    fetchData()
-    const withoutMatch = allConnections.filter(conn => conn.uuid !== id);
-    setConnections(withoutMatch);
   }, [id])
 
   return (
     <>
-      <UserListHeader firstName={user.first_name} userImage={user.image} />
-      <ItemGrid items={items} owner={false} userDetails={userDetails} />
+      {loading ? <Loading /> :
+        (
+          <>
+            <UserListHeader firstName={user.first_name} userImage={user.image} />
+            <ItemGrid items={items} owner={false} userDetails={userDetails} />
+          </>
+        )
+      }
     </>
   )
 }
