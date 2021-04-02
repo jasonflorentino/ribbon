@@ -22,7 +22,7 @@
 
     @include desktop {
       flex-direction: row;
-      padding-top: 2rem;
+      padding-top: 3rem;
     }
   }
 
@@ -33,8 +33,7 @@
     border-radius: 1rem;
 
     @include tablet_500 {
-      width: 40vw;
-      height: 40vw;
+      height: 50vw;
     }
 
     @include tablet {
@@ -53,7 +52,11 @@
 
     @include desktop {
       padding-top: 0;
-      padding-left: 1rem;
+      padding-left: 3rem;
     }
+  }
+
+  &__descriptionText {
+    @include font_size_paragraph;
   }
 }

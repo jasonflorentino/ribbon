@@ -1,0 +1,32 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.ItemDetailsBadges {
+  margin-bottom: 1rem;
+
+  &__badge {
+    margin-right: .5rem;
+    padding: .25rem .75rem;
+    border-radius: 1rem;
+    @include font_size_caption;
+    font-weight: 700;
+
+    &--size {
+      @extend .ItemDetailsBadges__badge;
+      background-color: $color_green_primary;
+      color: $color_blue_primary
+    }
+    
+    &--color {
+      @extend .ItemDetailsBadges__badge;
+      background-color: $color_green_primary;
+      color: $color_blue_primary
+    }
+    
+    &--giftedBy {
+      @extend .ItemDetailsBadges__badge;
+      background-color: $color_yellow_primary;
+      color: $color_red_primary
+    }
+  }
+}

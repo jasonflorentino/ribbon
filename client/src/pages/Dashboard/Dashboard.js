@@ -56,12 +56,12 @@ function Dashboard({userDetails, setIsAuthenticated})
                     return (
                       <>
                         <DashboardHeader userImage={userDetails.image} />
-                        <ItemGrid items={listItems} owner={true} />
+                        <ItemGrid items={listItems} isOwner={true} />
                       </>
                     )
                   }} />
                   <Route path="/item/:id" render={props => {
-                    return <ItemDetails {...props} loading={loading} setLoading={setLoading} />
+                    return <ItemDetails {...props} userDetails={userDetails} />
                   }}/>
                   <Route path="/user/:id" render={props => {
                     return <UserList 

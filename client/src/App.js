@@ -28,7 +28,8 @@ function App()
           setUserDetails({
             id: res.data.user,
             first_name: res.data.first_name,
-            image: res.data.image 
+            image: res.data.image,
+            list_id: res.data.list_id
           });
         } else {
           throw new Error("Bad response");
