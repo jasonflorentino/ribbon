@@ -8,6 +8,7 @@ import ConnectionsSideBar from "../../components/ConnectionsSideBar/ConnectionsS
 import ItemGrid from "../../components/ItemGrid/ItemGrid";
 import Loading from "../../components/Loading/Loading";
 import ItemDetails from "../ItemDetails/ItemDetails";
+import ItemDetailsEdit from "../ItemDetailsEdit/ItemDetailsEdit";
 import UserList from "../UserList/UserList";
 import utils from "../../utils";
 import "./Dashboard.scss";
@@ -60,15 +61,18 @@ function Dashboard({userDetails, setIsAuthenticated})
                       </>
                     )
                   }} />
+                  <Route path="/item/:id/edit" render={props => {
+                    return <ItemDetailsEdit {...props} />
+                  }} />
                   <Route path="/item/:id" render={props => {
                     return <ItemDetails {...props} userDetails={userDetails} />
-                  }}/>
+                  }} />
                   <Route path="/user/:id" render={props => {
                     return <UserList 
                       {...props} 
                       userDetails={userDetails}
                     />
-                  }}/>
+                  }} />
                 </Switch>
               </section>
             </main>

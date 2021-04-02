@@ -7,6 +7,7 @@ const listRoutes = require("./routes/listRoutes");
 const signupRoutes = require("./routes/signupRoutes");
 const connectionRoutes = require("./routes/connectionRoutes");
 const giftRoutes = require("./routes/giftRoutes");
+const uploadRoutes = require("./routes/uploadRoutes");
 const userRoutes = require("./routes/userRoutes");
 const Bookshelf = require('./bookshelf');
 
@@ -86,6 +87,7 @@ app.use("/gifts", giftRoutes);
 app.use("/list", listRoutes);
 app.use("/login", loginRoutes);
 app.use("/signup", signupRoutes);
+app.use("/upload", uploadRoutes);
 app.use("/user", userRoutes);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`))

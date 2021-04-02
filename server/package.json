@@ -13,8 +13,10 @@
   "dependencies": {
     "bookshelf": "^1.2.0",
     "cors": "^2.8.5",
+    "crypto-js": "^4.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.2",
     "mysql": "^2.18.1",

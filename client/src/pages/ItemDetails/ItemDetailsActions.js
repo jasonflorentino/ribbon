@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./ItemDetailsActions.scss";
 
 function ItemDetailsActions(
@@ -21,9 +22,9 @@ function ItemDetailsActions(
   return (
     <div className="ItemDetailsActions">
       {isOwnItem() && 
-        <button className="ItemDetailsActions__button--edit">
+        <Link to={`/item/${itemId}/edit`} className="ItemDetailsActions__button--edit">
           Edit
-        </button>
+        </Link>
       }
       {showClaim() && 
         <button className="ItemDetailsActions__button--claim" onClick={() => requestClaimSubmit(itemId)}>
