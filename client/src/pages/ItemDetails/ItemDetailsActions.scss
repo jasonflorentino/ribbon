@@ -1,0 +1,63 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.ItemDetailsActions {
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+
+  @include desktop {
+    justify-content: flex-end;
+  }
+
+  &__button {
+    margin-bottom: .5rem;
+    margin-right: .5rem;
+    padding: .4rem 1.2rem;
+    border: none;
+    border-radius: 2rem;
+    @include main_font;
+    @include font_size_paragraph;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all .2s;
+
+    @include desktop {
+      margin-bottom: 0;
+    }
+  
+    &:hover {
+      transform: translateY(-.2rem);
+      box-shadow: 0 .4rem 1rem -.25rem rgba(0,0,0,0.2);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &--edit {
+      @extend .ItemDetailsActions__button;
+      color: $color_blue_primary;
+      background-color: $color_yellow_primary;
+    }
+
+    &--claim {
+      @extend .ItemDetailsActions__button;
+      color: $color_blue_primary;
+      background-color: $color_yellow_primary;
+    }
+
+    &--release {
+      @extend .ItemDetailsActions__button;
+      color: $color_bw_white;
+      background-color: $color_red_primary;
+    }
+
+    &--buy {
+      @extend .ItemDetailsActions__button;
+      color: $color_bw_white;
+      background-color: $color_blue_primary;
+    }
+  }
+}

@@ -6,10 +6,7 @@ function ItemGrid({items, isOwner, userDetails, requestClaimGift})
 {
   const first_name = userDetails && userDetails.first_name;
   const uuid = userDetails && userDetails.id;
-
-  const handleClaimSubmit = (itemId) => {
-    requestClaimGift(uuid, itemId);
-  }
+  const handleClaimSubmit = (itemId) => requestClaimGift(uuid, itemId);
 
   return (
     <ul className="ItemGrid">

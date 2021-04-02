@@ -8,26 +8,62 @@ import ItemDetailsBadges from "./ItemDetailsBadges";
 import ItemDetailsActions from "./ItemDetailsActions";
 import "./ItemDetails.scss";
 
-function ItemDetails({match, userDetails})
+function ItemDetails({history, match, userDetails})
 {
   const [loading, setLoading] = useState(true);
   const [itemInfo, setItemInfo] = useState({});
   
-  useEffect(() => {
+  const fetchData = () => {
     if (!loading) setLoading(true);
     const url = process.env.REACT_APP_API_URL + `/gifts/${match.params.id}`
     axios
       .get(url, {headers: utils.getAuthHeader()})
       .then(res => {
-        console.log(res.data);
         setItemInfo(res.data);
       })
       .then(() => {
         setLoading(false);
       })
       .catch(err => {
+        alert("An error occurred while loading this page");
+        history.goBack();
+        window.location.reload();
         console.log(err);
       })
+  }
+
+  const requestClaimSubmit = (itemId) => {
+    const claimerUuid = userDetails.id;
+    const url = process.env.REACT_APP_API_URL + `/gifts/${itemId}/claim?user=${claimerUuid}`;
+    axios
+      .put(url,{},{headers: utils.getAuthHeader()})
+      .then(res => {
+        fetchData();
+      })
+      .catch(err => {
+        alert("There was an error while claiming this gift");
+        window.location.reload();
+        console.log("ItemDetails requestClaimSubmit():", err);
+      })
+  }
+
+  const requestReleaseSubmit = (itemId) => {
+    const claimerUuid = userDetails.id;
+    const url = process.env.REACT_APP_API_URL + `/gifts/${itemId}/release?user=${claimerUuid}`;
+    axios
+      .put(url,{},{headers: utils.getAuthHeader()})
+      .then(res => {
+        fetchData();
+      })
+      .catch(err => {
+        alert("There was an error while releaseing this gift");
+        window.location.reload();
+        console.log("ItemDetails requestReleaseSubmit():", err);
+      })
+  }
+
+  useEffect(() => {
+    fetchData();
       // eslint-disable-next-line
   }, [match.params.id])
 
@@ -67,6 +103,10 @@ function ItemDetails({match, userDetails})
                   list_id={itemInfo.list_id}
                   currUserName={userDetails.first_name} 
                   first_name={itemInfo.first_name}
+                  external_link={itemInfo.external_link}
+                  itemId={itemInfo.id}
+                  requestClaimSubmit={requestClaimSubmit}
+                  requestReleaseSubmit={requestReleaseSubmit}
                 />
               </div>
             </main>

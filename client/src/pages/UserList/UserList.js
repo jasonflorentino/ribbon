@@ -50,18 +50,14 @@ function UserList({match, userDetails, history})
       })
   }
 
-  return (
-    <>
-      {loading ? <Loading /> :
-        (
-          <>
-            <UserListHeader firstName={user.first_name} userImage={user.image} />
-            <ItemGrid items={items} owner={false} userDetails={userDetails} requestClaimGift={requestClaimGift} />
-          </>
-        )
-      }
-    </>
-  )
+  return loading ? 
+    <Loading />  :
+    (
+      <>
+        <UserListHeader firstName={user.first_name} userImage={user.image} />
+        <ItemGrid items={items} owner={false} userDetails={userDetails} requestClaimGift={requestClaimGift} />
+      </>
+    )
 }
 
 export default UserList;

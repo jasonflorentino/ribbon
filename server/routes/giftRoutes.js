@@ -39,7 +39,32 @@ router.put("/:id/claim", (req, res) => {
     })
   })
   .catch(err => {
-    console.log("ERROR in giftRoutes PUR /:id/claim - ", err.message);
+    console.log("ERROR in giftRoutes PUT /:id/claim - ", err.message);
+    res.status(500).json({message: "Couldn't update data"})
+    utils.logResponse(res);
+  })
+})
+
+router.put("/:id/release", (req, res) => {
+  const itemId = req.params.id;
+  const claimerUuid = req.query.user;
+  const query1 = (itemId, claimerUuid) => {
+    return `UPDATE gifts SET gifted_by = NULL WHERE (id = '${itemId}');`
+  }
+  const query2 = (itemId) => {
+    return `UPDATE gifts SET status = 'available' WHERE (id = '${itemId}');`
+  }
+
+  Bookshelf.knex.raw(query1(itemId, claimerUuid))
+  .then(() => {
+    Bookshelf.knex.raw(query2(itemId))
+    .then(() => {
+      res.status(200).json({message: "Update successful"});
+      utils.logResponse(res); 
+    })
+  })
+  .catch(err => {
+    console.log("ERROR in giftRoutes PUT /:id/release - ", err.message);
     res.status(500).json({message: "Couldn't update data"})
     utils.logResponse(res);
   })
