@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import FadeIn from "react-fade-in";
 import UserListHeader from "./UserListHeader";
 import ItemGrid from "../../components/ItemGrid/ItemGrid";
 import Loading from "../../components/Loading/Loading";
@@ -52,12 +53,10 @@ function UserList({match, userDetails, history})
 
   return loading ? 
     <Loading />  :
-    (
-      <>
-        <UserListHeader firstName={user.first_name} userImage={user.image} />
-        <ItemGrid items={items} owner={false} userDetails={userDetails} requestClaimGift={requestClaimGift} />
-      </>
-    )
+    <FadeIn>
+      <UserListHeader firstName={user.first_name} userImage={user.image} />
+      <ItemGrid items={items} owner={false} userDetails={userDetails} requestClaimGift={requestClaimGift} />
+    </FadeIn>
 }
 
 export default UserList;

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import FadeIn from "react-fade-in";
 import axios from "axios";
 import ButtonBack from "../../components/ButtonBack/ButtonBack";
 import MainHeading from "../../components/MainHeading/MainHeading";
@@ -73,48 +74,41 @@ function ItemDetails({history, match, userDetails})
         || itemInfo.first_name
   }
 
-  return (
-    <>
-      {loading ? <Loading /> :
-        (
-          <>
-            <header className="ItemDetails__header">
-              <ButtonBack />
-              <MainHeading text={itemInfo.name} price={itemInfo.price} />
-            </header>
-            <main className="ItemDetails__main">
-              <img 
-                className="ItemDetails__image" 
-                src={utils.getPublicUrl(itemInfo.image)}
-                alt={itemInfo.name}
-              />
-              <div className="ItemDetails__description">
-                {includeBadges() && <ItemDetailsBadges
-                  currUserListId={userDetails.list_id} 
-                  currUserName={userDetails.first_name} 
-                  list_id={itemInfo.list_id}
-                  color={itemInfo.color}
-                  size={itemInfo.size}
-                  first_name={itemInfo.first_name}
-                />}
-                <p className="ItemDetails__descriptionText">{itemInfo.description}</p>
-                <ItemDetailsActions 
-                  currUserListId={userDetails.list_id} 
-                  list_id={itemInfo.list_id}
-                  currUserName={userDetails.first_name} 
-                  first_name={itemInfo.first_name}
-                  external_link={itemInfo.external_link}
-                  itemId={itemInfo.id}
-                  requestClaimSubmit={requestClaimSubmit}
-                  requestReleaseSubmit={requestReleaseSubmit}
-                />
-              </div>
-            </main>
-          </>
-        )
-      }
-    </>
-  )
+  return loading ? <Loading /> :
+    <FadeIn>
+      <header className="ItemDetails__header">
+        <ButtonBack />
+        <MainHeading text={itemInfo.name} price={itemInfo.price} />
+      </header>
+      <main className="ItemDetails__main">
+        <img 
+          className="ItemDetails__image" 
+          src={utils.getPublicUrl(itemInfo.image)}
+          alt={itemInfo.name}
+        />
+        <div className="ItemDetails__description">
+          {includeBadges() && <ItemDetailsBadges
+            currUserListId={userDetails.list_id} 
+            currUserName={userDetails.first_name} 
+            list_id={itemInfo.list_id}
+            color={itemInfo.color}
+            size={itemInfo.size}
+            first_name={itemInfo.first_name}
+          />}
+          <p className="ItemDetails__descriptionText">{itemInfo.description}</p>
+          <ItemDetailsActions 
+            currUserListId={userDetails.list_id} 
+            list_id={itemInfo.list_id}
+            currUserName={userDetails.first_name} 
+            first_name={itemInfo.first_name}
+            external_link={itemInfo.external_link}
+            itemId={itemInfo.id}
+            requestClaimSubmit={requestClaimSubmit}
+            requestReleaseSubmit={requestReleaseSubmit}
+          />
+        </div>
+      </main>
+    </FadeIn>
 }
 
 export default ItemDetails;
