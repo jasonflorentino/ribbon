@@ -68,12 +68,14 @@ app.use((req, res, next) => {
 
 app.get("/check-auth", (req, res) => {
   const query = function(uuid) {
-    return `SELECT p.image, p.first_name FROM people AS p INNER JOIN users as u WHERE p.user_id = u.id AND u.uuid = '${uuid}';`
+    return `SELECT p.image, p.first_name, l.id AS list_id FROM people AS p INNER JOIN users AS u LEFT JOIN lists AS l ON l.user_id = u.id WHERE p.user_id = u.id AND u.uuid = '${uuid}';`
   }
   Bookshelf.knex.raw(query(req.decode.user))
   .then(arr => {
-    req.decode.image = arr[0][0].image;
-    req.decode.first_name = arr[0][0].first_name;
+    const data = arr[0][0];
+    req.decode.image = data.image;
+    req.decode.first_name = data.first_name;
+    req.decode.list_id = data.list_id;
     res.status(200).json(req.decode)
     utils.logResponse(res); 
   })
