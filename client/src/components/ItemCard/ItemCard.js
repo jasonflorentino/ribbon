@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import utils from "../../utils";
 import "./ItemCard.scss";
 
-function ItemCard({itemData, owner, currentUserFirstName})
+function ItemCard({itemData, isOwner, currentUserFirstName, handleClaimSubmit})
 {
   const {name, id, image, price, external_link, status, gifted_by, first_name} = itemData; 
 
-  const showBuyLinks = (owner, status) => {
-    return (!owner && status === "available");
+  const showBuyLinks = (isOwner, status) => {
+    return (!isOwner && status === "available");
   }
 
   const getGifterName = () => {
@@ -16,7 +16,7 @@ function ItemCard({itemData, owner, currentUserFirstName})
 
   return (
     <li className={`ItemCard`}>
-      <div className={`card${!owner && status !== "available" ?  "--claimed" : ""}`}>
+      <div className={`card${!isOwner && status !== "available" ?  "--claimed" : ""}`}>
         {gifted_by && <div className="card__giftedBy">{`Gifted by ${getGifterName()}`}</div>}
         <Link to={`/item/${id}`} className="ItemCard__link">
           <img className="card__img" src={utils.getPublicUrl(image)} alt={name} />
@@ -29,8 +29,8 @@ function ItemCard({itemData, owner, currentUserFirstName})
             <span className="card__price">${price}</span>
           </div>
           <div className="card__contentRow--bottom">
-            {showBuyLinks(owner, status) && <button className="card__button--secondary">I got it!</button>}
-            {showBuyLinks(owner, status) && <a href={external_link} className="card__button" target="_blank" rel="noreferrer">Buy</a>}
+            {showBuyLinks(isOwner, status) && <button className="card__button--secondary" onClick={() => handleClaimSubmit(id)}>I got it!</button>}
+            {showBuyLinks(isOwner, status) && <a href={external_link} className="card__button" target="_blank" rel="noreferrer">Buy</a>}
           </div>
         </div>
       </div>

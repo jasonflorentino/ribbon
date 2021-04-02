@@ -2,18 +2,24 @@ import ItemCard from "../ItemCard/ItemCard";
 import ItemCardCreate from "../ItemCardCreate/ItemCardCreate";
 import "./ItemGrid.scss";
 
-function ItemGrid({items, owner, userDetails})
+function ItemGrid({items, isOwner, userDetails, requestClaimGift})
 {
   const first_name = userDetails && userDetails.first_name;
+  const uuid = userDetails && userDetails.id;
+
+  const handleClaimSubmit = (itemId) => {
+    requestClaimGift(uuid, itemId);
+  }
 
   return (
     <ul className="ItemGrid">
-      {owner && <ItemCardCreate />}
+      {isOwner && <ItemCardCreate />}
       {items.map(item => <ItemCard 
         key={`gift${item.id}`} 
         itemData={item} 
-        owner={owner} 
-        currentUserFirstName={first_name} 
+        isOwner={isOwner} 
+        currentUserFirstName={first_name}
+        handleClaimSubmit={handleClaimSubmit} 
       />)}
     </ul>
   )

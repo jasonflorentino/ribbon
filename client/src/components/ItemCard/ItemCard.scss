@@ -157,6 +157,10 @@ $desktop_radius: 1rem;
     box-shadow: 0 0 0 1px $color_blue_primary;
     cursor: pointer;
 
+    &:focus {
+      outline: none;
+    }
+
     &--secondary {
       @extend .card__button;
       color: $color_blue_primary;

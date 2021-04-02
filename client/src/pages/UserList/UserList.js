@@ -6,14 +6,15 @@ import Loading from "../../components/Loading/Loading";
 import utils from "../../utils";
 import "./UserList.scss";
 
-function UserList({match, userDetails})
+function UserList({match, userDetails, history})
 {
   const id = match.params.id;
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const [user, setUser] = useState({});
 
-  useEffect(() => {
+  const fetchItems = () => {
+    if (!loading) setLoading(true);
     const url = process.env.REACT_APP_API_URL + `/user/${id}`;
     axios
       .get(url, {headers: utils.getAuthHeader()})
@@ -25,9 +26,29 @@ function UserList({match, userDetails})
         setLoading(false);
       })
       .catch(err => {
+        alert("An error occurred while loading this user's list!")
+        history.replace("/");
+        window.location.reload()
         console.log("UserList FetchData():", err);
       })
+  }
+
+  useEffect(() => {
+    fetchItems();
+    // eslint-disable-next-line
   }, [id])
+
+  const requestClaimGift = (claimerId, itemId) => {
+    const url = process.env.REACT_APP_API_URL + `/gifts/${itemId}/claim?user=${claimerId}`;
+    axios
+      .put(url,{},{headers: utils.getAuthHeader()})
+      .then(res => {
+        fetchItems();
+      })
+      .catch(err => {
+        console.log("UserList requestClaimGift():", err);
+      })
+  }
 
   return (
     <>
@@ -35,7 +56,7 @@ function UserList({match, userDetails})
         (
           <>
             <UserListHeader firstName={user.first_name} userImage={user.image} />
-            <ItemGrid items={items} owner={false} userDetails={userDetails} />
+            <ItemGrid items={items} owner={false} userDetails={userDetails} requestClaimGift={requestClaimGift} />
           </>
         )
       }
