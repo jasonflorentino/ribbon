@@ -9,12 +9,8 @@
   border: none;
   background-color: $color_yellow_primary;
   cursor: pointer;
-  transition: all .2s;
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 .4rem 1rem -.25rem rgba(0,0,0,0.2);
-  }
+  
+  @include hover_rise;
 
   &:focus {
     outline: none;

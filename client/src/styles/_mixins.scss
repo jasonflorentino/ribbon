@@ -73,6 +73,11 @@
   @include tablet {
     font-size: 1rem;
   }
+
+  @include desktop {
+    font-size: 1.1rem;
+    line-height: 1.65rem;
+  }
 }
 
 @mixin font_size_caption {
@@ -116,5 +121,18 @@
 @mixin desktop {
   @media (min-width: $media_size_desktop) {
     @content;
+  }
+}
+
+/* ========
+ * UI STYLE
+ * ======== */
+
+@mixin hover_rise {
+  transition: all .2s;
+  
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: 0 .4rem 1rem -.25rem rgba(0,0,0,0.2);
   }
 }
