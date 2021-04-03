@@ -1,4 +1,6 @@
 const express = require("express");
+const path = require('path');
+const { v1: uuidv1 } = require('uuid');
 const fileUpload = require("express-fileupload");
 const utils = require("../utils");
 const Bookshelf = require("../bookshelf");
@@ -10,20 +12,41 @@ router.use(fileUpload({
 
 router.post("/", (req, res) => {
   if (req.files === null) {
-    return res.status(400).json({message: "No file uploaded"});
+    res.status(400).json({message: "No file uploaded"});
+    utils.logResponse(res)
+    return;
+  }
+
+  if (!req.body || !req.body.giftId) {
+    res.status(400).json({message: "You must provide a gift ID"});
+    utils.logResponse(res)
+    return;
   }
 
   const file = req.files.file;
+  const gift_id = req.body.giftId;
 
-  file.mv(`${__dirname}/public/${file.name}`, err => {
-    if (err) {
-      console.error("/upload file.mv ERROR:", err);
-      return res.status(500).send(err);
-    }
+  const nameArr = file.name.split(".");
+  const ext = nameArr[nameArr.length - 1];
+  file.name = uuidv1() + "." + ext;
 
+  const query_details = `UPDATE gift_details SET image = '${file.name}' WHERE (gift_id = ${gift_id});`
+  const query_gift = `UPDATE gifts SET date_modified = NOW() WHERE id = ${gift_id};`
+
+  Promise.all([
+    file.mv(path.join(__dirname, `../public/${file.name}`)),
+    Bookshelf.knex.raw(query_details),
+    Bookshelf.knex.raw(query_gift)
+  ])
+  .then(() => {
     res.status(200).json({fileName: file.name});
+    utils.logResponse(res);
   })
-
+  .catch(err => {
+    res.status(500).send(err);
+    utils.logResponse(res);
+    console.error("/upload file.mv ERROR:", err);
+  })
 })
 
 module.exports = router;

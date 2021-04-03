@@ -2,5 +2,26 @@
 @use "../../styles/mixins" as *;
 
 .ItemDetailsEdit {
+  &__header {
+    @include side_padding;
+    display: flex;
+    flex-direction: column;
 
+    @include tablet {
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+
+  &__main {
+    @include side_padding;
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    @include desktop {
+      flex-direction: row;
+      padding-top: 3rem;
+    }
+  }
 }
