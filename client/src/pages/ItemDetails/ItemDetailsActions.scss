@@ -21,16 +21,12 @@
     font-weight: 700;
     text-decoration: none;
     cursor: pointer;
-    transition: all .2s;
 
     @include desktop {
       margin-bottom: 0;
     }
-  
-    &:hover {
-      transform: translateY(-.2rem);
-      box-shadow: 0 .4rem 1rem -.25rem rgba(0,0,0,0.2);
-    }
+
+    @include hover_rise;
 
     &:focus {
       outline: none;

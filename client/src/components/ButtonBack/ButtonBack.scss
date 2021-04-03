@@ -10,7 +10,7 @@
   background-color: $color_yellow_primary;
   cursor: pointer;
   
-  @include hover_rise;
+  @include hover_grow;
 
   &:focus {
     outline: none;

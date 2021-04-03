@@ -128,11 +128,26 @@
  * UI STYLE
  * ======== */
 
-@mixin hover_rise {
+@mixin hover_grow {
   transition: all .2s;
   
   &:hover {
     transform: scale(1.05);
     box-shadow: 0 .4rem 1rem -.25rem rgba(0,0,0,0.2);
   }
+}
+
+@mixin hover_rise {
+  transition: all .2s;
+  
+  &:hover {
+    transform: translateY(-.2rem);
+    box-shadow: 0 .4rem 1rem -.25rem rgba(0,0,0,0.2);
+  }
+}
+
+@mixin button_reset {
+  @include main_font;
+  @include font_size_paragraph;
+  border: none;
 }
