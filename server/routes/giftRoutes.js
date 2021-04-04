@@ -4,6 +4,10 @@ const Bookshelf = require("../bookshelf");
 
 const router = express.Router();
 
+/* --------------------------------------------------
+ * ROUTES TO /gifts
+ * -------------------------------------------------- */
+
 router.get("/:id", (req, res) => {
   const query = (id) => {
     return `SELECT g.id, g.name, g.list_id, g.status, g.gifted_by, g.date_modified, g.date_created, gd.image, gd.price, gd.color, gd.size, gd.description, gd.category, gd.external_link, people.first_name FROM gifts AS g LEFT JOIN people ON g.gifted_by = people.user_id INNER JOIN gift_details AS gd ON gd.gift_id = ${id} WHERE g.id = ${id};`
@@ -23,16 +27,12 @@ router.get("/:id", (req, res) => {
 router.put("/:id/claim", (req, res) => {
   const itemId = req.params.id;
   const claimerUuid = req.query.user;
-  const query1 = (itemId, claimerUuid) => {
-    return `UPDATE gifts SET gifted_by = (SELECT users.id FROM users WHERE users.uuid = '${claimerUuid}') WHERE (id = '${itemId}');`
-  }
-  const query2 = (itemId) => {
-    return `UPDATE gifts SET status = 'claimed' WHERE (id = '${itemId}');`
-  }
+  const query1 = `UPDATE gifts SET gifted_by = (SELECT users.id FROM users WHERE users.uuid = '${claimerUuid}') WHERE (id = '${itemId}');`
+  const query2 = `UPDATE gifts SET status = 'claimed' WHERE (id = '${itemId}');`
 
-  Bookshelf.knex.raw(query1(itemId, claimerUuid))
+  Bookshelf.knex.raw(query1)
   .then(() => {
-    Bookshelf.knex.raw(query2(itemId))
+    Bookshelf.knex.raw(query2)
     .then(() => {
       res.status(200).json({message: "Update successful"});
       utils.logResponse(res); 
@@ -47,17 +47,12 @@ router.put("/:id/claim", (req, res) => {
 
 router.put("/:id/release", (req, res) => {
   const itemId = req.params.id;
-  const claimerUuid = req.query.user;
-  const query1 = (itemId, claimerUuid) => {
-    return `UPDATE gifts SET gifted_by = NULL WHERE (id = '${itemId}');`
-  }
-  const query2 = (itemId) => {
-    return `UPDATE gifts SET status = 'available' WHERE (id = '${itemId}');`
-  }
+  const query1 = `UPDATE gifts SET gifted_by = NULL WHERE (id = '${itemId}');`
+  const query2 = `UPDATE gifts SET status = 'available' WHERE (id = '${itemId}');`
 
-  Bookshelf.knex.raw(query1(itemId, claimerUuid))
+  Bookshelf.knex.raw(query1)
   .then(() => {
-    Bookshelf.knex.raw(query2(itemId))
+    Bookshelf.knex.raw(query2)
     .then(() => {
       res.status(200).json({message: "Update successful"});
       utils.logResponse(res); 
