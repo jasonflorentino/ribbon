@@ -1,0 +1,56 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.FormEditGift {
+  position: relative;
+  flex: 1 1 0;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+
+  &__splitRow {
+    display: flex;
+  }
+
+  &__inputText {
+    width: 100%;
+    background-color: $color_yellow_light;
+    color: $color_blue_primary;
+  }
+
+  &__price {
+    padding-left: 2.25rem;
+    background-image: url("../../assets/dollar-sign.svg");
+    background-position: 1.5rem, center;
+    background-repeat: no-repeat;
+    background-size: 0.6rem;
+  }
+
+  &__size {
+    margin-right: .5rem;
+  }
+
+  &__color {
+    margin-left: .5rem;
+  }
+
+  &__submit{
+    margin-top: 1rem;
+    margin-left: auto;
+    height: 2.5rem;
+    padding: .25rem 1.5rem;
+    @include button_reset;
+    border-radius: 2.5rem;
+    background-color: $color_blue_primary;
+    color: $color_yellow_primary;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px $color_bw_white;
+    }
+
+    @include hover_rise;
+  }
+
+}

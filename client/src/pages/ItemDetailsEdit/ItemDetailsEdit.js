@@ -5,6 +5,7 @@ import Loading from "../../components/Loading/Loading";
 import ButtonBack from "../../components/ButtonBack/ButtonBack";
 import MainHeading from "../../components/MainHeading/MainHeading";
 import ImageWithUpload from "../../components/ImageWithUpload/ImageWithUpload";
+import FormEditGift from "../../components/FormEditGift/FormEditGift";
 import utils from "../../utils";
 import "./ItemDetailsEdit.scss";
 
@@ -12,7 +13,7 @@ function ItemDetailsEdit({match, history})
 {
   const [loading, setLoading] = useState(true);
   const [itemInfo, setItemInfo] = useState({});
-
+  
   const fetchData = () => {
     if (!loading) setLoading(true);
     const url = process.env.REACT_APP_API_URL + `/gifts/${match.params.id}`
@@ -34,7 +35,7 @@ function ItemDetailsEdit({match, history})
 
   useEffect(() => {
     fetchData();
-      // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [match.params.id])
 
   return loading ? <Loading /> :
@@ -45,6 +46,7 @@ function ItemDetailsEdit({match, history})
       </header>
       <main className="ItemDetailsEdit__main">
         <ImageWithUpload itemId={match.params.id} initialImage={itemInfo.image} />
+        <FormEditGift itemInfo={itemInfo} />
       </main>
     </FadeIn>
 }

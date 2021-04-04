@@ -1,0 +1,34 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.InputTextarea {
+  width: 100%;
+  height: 10rem;
+  @include layout_vert_margin;
+  padding: 1rem 1.5rem;
+  border-radius: 1.5rem;
+  border: none;
+  @include main_font;
+  @include font_size_paragraph;
+  background-color: $color_yellow_light;
+  color: $color_bw_dark;
+  overflow: hidden;
+  resize: none;
+  
+  &::placeholder {
+    color: $color_bw_light;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px $color_blue_primary;
+  }
+
+  &--error {
+    box-shadow: 0 0 0 2px $color_red_primary;
+
+    &:focus {
+      box-shadow: 0 0 0 2px $color_red_primary;
+    }
+  }
+}

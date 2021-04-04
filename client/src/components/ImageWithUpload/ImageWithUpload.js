@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import utils from "../../utils";
 import "./ImageWithUpload.scss";
@@ -59,6 +59,14 @@ function ImageWithUpload({itemId, initialImage})
         console.error("ImageWithUpload - handleImageSubmit():", err);
       })
   }
+
+  // Force update of cached image in other components on unmount
+  useEffect(() => {
+    return () => {
+      if (file) window.location.reload();
+    }
+    // eslint-disable-next-line
+  }, [])
 
   return (  
     <div className="ImageWithUpload">
