@@ -4,7 +4,7 @@ import utils from "../../utils";
 import "./ImageWithUpload.scss";
 import Loading from "../Loading/Loading";
 
-function ImageWithUpload({itemId, initialImage}) 
+function ImageWithUpload({itemId, initialImage, setRequireUpdate}) 
 {
   // Use prop to initialize state.
   // This will get replaced on upload.
@@ -50,6 +50,7 @@ function ImageWithUpload({itemId, initialImage})
         setImageSrc(res.data.fileName);
         setFilename("Success!");
         setLoading(false);
+        setRequireUpdate(true);
       })
       .catch(err => {
         if (err.response.status === 500) alert("There was a problem with the server.");

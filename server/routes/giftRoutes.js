@@ -65,4 +65,44 @@ router.put("/:id/release", (req, res) => {
   })
 })
 
+router.put("/:id/edit", (req, res) => {
+  if ( !req.body 
+    || !req.body.gift_id 
+    || !req.body.name 
+    || req.body.price < 0
+    || req.body.price === null
+    || req.body.price === undefined
+  ) {
+    res.status(400).json({message: "You must provide proper item details"});
+    utils.logResponse(res);
+    return;
+  }
+
+  const { 
+    gift_id, 
+    name, 
+    price, 
+    color = "NULL", 
+    size = "NULL", 
+    description = "NULL" 
+  } = req.body;
+
+  const query1 = `UPDATE gift_details SET price = :price, color = :color, size = :size, description = :description WHERE (gift_id = :gift_id);`;
+  const query2 = `UPDATE gifts SET name = :name, date_modified = NOW() WHERE (id = :gift_id)`;
+
+  Promise.all([
+    Bookshelf.knex.raw(query1, {price: price, color: color, size: size, description: description, gift_id: gift_id}),
+    Bookshelf.knex.raw(query2, {name: name, gift_id: gift_id})
+  ])
+  .then((result) => {
+    res.status(200).json({message: `${name} was updated successfully`});
+    utils.logResponse(res);
+  })
+  .catch(err => {
+    res.status(500).send(err);
+    utils.logResponse(res);
+    console.error(`/gifts/${gift_id}/edit DB ERROR:`, err);
+  })
+})
+
 module.exports = router;

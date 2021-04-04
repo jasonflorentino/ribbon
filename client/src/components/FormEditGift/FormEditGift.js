@@ -2,29 +2,81 @@ import { useReducer } from "react";
 import InputType from "../InputType/InputType";
 import InputTextarea from "../InputTextarea/InputTextarea";
 import "./FormEditGift.scss";
+import axios from "axios";
+import utils from "../../utils";
 
-function FormEditGift({itemInfo})
+function FormEditGift({itemInfo, history, setRequireUpdate})
 {
   const { name, price, size, color, description } = itemInfo;
 
   const reducer = (state, newState) => ({...state, ...newState});
   const initState = {
     name: name,
+    nameError: false,
+    nameErrorMsg: "",
     price: price,
+    priceError: false,
+    priceErrorMsg: "",
     size: size || "",
+    sizeError: false,
+    sizeErrorMsg: "",
     color: color || "",
-    description: description
+    colorError: false,
+    colorErrorMsg: "",
+    description: description,
+    descriptionError: false,
+    descriptionErrorMsg: "",
   }
   const [formInput, setFormInput] = useReducer(reducer, initState)
 
   const handleChange = e => {
     const { name, value }  = e.target;
-    setFormInput({ [name]: value });
+    setFormInput({ 
+      [name]: value,
+      [`${name}Error`]: false,
+    });
   }
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log("Submit!");
+
+    if (!formInput.name) {
+      setFormInput({ 
+        nameError: true,
+        nameErrorMsg: "You must provide a name",
+      });
+      return;
+    }
+
+    if (!formInput.price) {
+      setFormInput({ 
+        priceError: true,
+        priceErrorMsg: "You must provide a price",
+      });
+      return;
+    }
+
+    const id = itemInfo.id;
+    const url = process.env.REACT_APP_API_URL + `/gifts/${id}/edit`;
+    const itemDetails = {
+      gift_id: id,
+      name: formInput.name,
+      price: formInput.price,
+      size: formInput.size,
+      color: formInput.color,
+      description: formInput.description,
+    }
+    
+    axios
+      .put(url, itemDetails, {headers: utils.getAuthHeader()})
+      .then(() => {
+        setRequireUpdate(true);
+        history.push(`/item/${id}`);
+      })
+      .catch(err => {
+        alert("An error occurred while trying to upload the file.");
+        console.error("FormEditGift - handleSubmit():", err);
+      })
   }
 
   return (
@@ -37,6 +89,8 @@ function FormEditGift({itemInfo})
         value={formInput.name} 
         onChange={handleChange} 
         placeholder="Gift name" 
+        error={formInput.nameError}
+        errorMsg={formInput.nameErrorMsg}
       />
       <label className="FormEditGift__label" htmlFor="name">Price</label>
       <InputType 
@@ -45,7 +99,9 @@ function FormEditGift({itemInfo})
         name={"price"} 
         value={formInput.price} 
         onChange={handleChange} 
-        placeholder="Price" 
+        placeholder="Price"
+        error={formInput.priceError}
+        errorMsg={formInput.priceErrorMsg} 
       />
       <div className="FormEditGift__splitRow">
         <div className="FormEditGift__size">

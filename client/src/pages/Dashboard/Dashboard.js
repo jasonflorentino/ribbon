@@ -18,8 +18,11 @@ function Dashboard({userDetails, setIsAuthenticated})
   const [loading, setLoading] = useState(true);
   const [listItems, setListItems] = useState([]);
   const [connections, setConnections] = useState([]);
+  const [requireUpdate, setRequireUpdate] = useState(true);
 
   useEffect(() => {
+    if (!requireUpdate) return;
+    
     setLoading(true);
     const listUrl = process.env.REACT_APP_API_URL + "/list"
     const connectsUrl = process.env.REACT_APP_API_URL + "/connections"
@@ -33,10 +36,11 @@ function Dashboard({userDetails, setIsAuthenticated})
       setConnections(connectsRes.data);
     }))
     .then(() => {
+      setRequireUpdate(false);
       setLoading(false);
     })
     .catch(err => {console.log(err)})
-  }, [])
+  }, [requireUpdate])
 
   return loading ? <Loading /> :
     (
@@ -62,7 +66,7 @@ function Dashboard({userDetails, setIsAuthenticated})
                     )
                   }} />
                   <Route path="/item/:id/edit" render={props => {
-                    return <ItemDetailsEdit {...props} />
+                    return <ItemDetailsEdit {...props} setRequireUpdate={setRequireUpdate} />
                   }} />
                   <Route path="/item/:id" render={props => {
                     return <ItemDetails {...props} userDetails={userDetails} />

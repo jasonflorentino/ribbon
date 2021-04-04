@@ -24,6 +24,7 @@ function InputType(
         onChange={onChange}
         placeholder={placeholder}
         autoComplete="off"
+        maxLength="255"
       />
       {error && <InputError text={errorMsg} />}
     </>

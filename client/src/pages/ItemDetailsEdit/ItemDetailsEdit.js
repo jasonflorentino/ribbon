@@ -9,11 +9,11 @@ import FormEditGift from "../../components/FormEditGift/FormEditGift";
 import utils from "../../utils";
 import "./ItemDetailsEdit.scss";
 
-function ItemDetailsEdit({match, history})
+function ItemDetailsEdit({match, history, setRequireUpdate})
 {
   const [loading, setLoading] = useState(true);
   const [itemInfo, setItemInfo] = useState({});
-  
+
   const fetchData = () => {
     if (!loading) setLoading(true);
     const url = process.env.REACT_APP_API_URL + `/gifts/${match.params.id}`
@@ -45,8 +45,8 @@ function ItemDetailsEdit({match, history})
         <MainHeading text={itemInfo.name} />
       </header>
       <main className="ItemDetailsEdit__main">
-        <ImageWithUpload itemId={match.params.id} initialImage={itemInfo.image} />
-        <FormEditGift itemInfo={itemInfo} />
+        <ImageWithUpload itemId={match.params.id} initialImage={itemInfo.image} setRequireUpdate={setRequireUpdate} />
+        <FormEditGift itemInfo={itemInfo} history={history} setRequireUpdate={setRequireUpdate} />
       </main>
     </FadeIn>
 }
