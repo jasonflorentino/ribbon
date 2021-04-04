@@ -30,13 +30,13 @@ router.post("/", (req, res) => {
   const ext = nameArr[nameArr.length - 1];
   file.name = uuidv1() + "." + ext;
 
-  const query_details = `UPDATE gift_details SET image = '${file.name}' WHERE (gift_id = ${gift_id});`
-  const query_gift = `UPDATE gifts SET date_modified = NOW() WHERE id = ${gift_id};`
+  const query_details = "UPDATE gift_details SET image = :fileName WHERE (gift_id = :gift_id);"
+  const query_gift = "UPDATE gifts SET date_modified = NOW() WHERE id = :gift_id;"
 
   Promise.all([
     file.mv(path.join(__dirname, `../public/${file.name}`)),
-    Bookshelf.knex.raw(query_details),
-    Bookshelf.knex.raw(query_gift)
+    Bookshelf.knex.raw(query_details, {fileName: file.name, gift_id: gift_id}),
+    Bookshelf.knex.raw(query_gift, {gift_id: gift_id})
   ])
   .then(() => {
     res.status(200).json({fileName: file.name});
