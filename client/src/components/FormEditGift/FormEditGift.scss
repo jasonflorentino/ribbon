@@ -15,7 +15,15 @@
   &__inputText {
     width: 100%;
     background-color: $color_yellow_light;
-    color: $color_blue_primary;
+    color: $color_bw_dark;
+  }
+
+  &__label {
+    font-weight: 700;
+    font-size: .85em;
+    color: $color_red_primary;
+    padding-left: 1.5rem;
+    margin-bottom: -.25rem;
   }
 
   &__price {

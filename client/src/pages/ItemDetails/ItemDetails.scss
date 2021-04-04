@@ -50,6 +50,10 @@
   &__description {
     padding-top: 1rem;
 
+    @include tablet {
+      padding-right: 2.5rem;
+    }
+
     @include desktop {
       padding-top: 0;
       padding-left: 3rem;
