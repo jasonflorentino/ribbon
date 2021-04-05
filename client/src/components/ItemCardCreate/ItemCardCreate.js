@@ -1,14 +1,15 @@
 import { Link } from "react-router-dom";
 import "./ItemCardCreate.scss";
 
-function ItemCardCreate() {
+function ItemCardCreate()
+{
   return (
     <li className="ItemCardCreate">
-      <div className="ItemCardCreate__card">
-        <Link to="/" className="ItemCardCreate__link">
-          Add a new item
-        </Link>
-      </div>
+      <Link to="/item/new" className="ItemCardCreate__link">
+        <div className="ItemCardCreate__card">
+            Add a new item
+        </div>
+      </Link>
     </li>
   )
 }

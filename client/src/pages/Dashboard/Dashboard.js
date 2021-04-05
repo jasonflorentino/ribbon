@@ -10,6 +10,7 @@ import Loading from "../../components/Loading/Loading";
 import ItemDetails from "../ItemDetails/ItemDetails";
 import ItemDetailsEdit from "../ItemDetailsEdit/ItemDetailsEdit";
 import UserList from "../UserList/UserList";
+import ItemNew from "../ItemNew/ItemNew";
 import utils from "../../utils";
 import "./Dashboard.scss";
 
@@ -64,6 +65,9 @@ function Dashboard({userDetails, setIsAuthenticated})
                         <ItemGrid items={listItems} isOwner={true} />
                       </FadeIn>
                     )
+                  }} />
+                  <Route path="/item/new" render={props => {
+                    return <ItemNew {...props} setRequireUpdate={setRequireUpdate} />
                   }} />
                   <Route path="/item/:id/edit" render={props => {
                     return <ItemDetailsEdit {...props} setRequireUpdate={setRequireUpdate} />
