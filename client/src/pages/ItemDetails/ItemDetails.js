@@ -57,9 +57,25 @@ function ItemDetails({history, match, userDetails})
         fetchData();
       })
       .catch(err => {
-        alert("There was an error while releaseing this gift");
+        alert("There was an error while releasing this gift");
         window.location.reload();
         console.log("ItemDetails requestReleaseSubmit():", err);
+      })
+  }
+
+  const requestDelete = (itemId) => {
+    const url = process.env.REACT_APP_API_URL + `/gifts/${itemId}`;
+
+    axios
+      .delete(url, {headers: utils.getAuthHeader()})
+      .then(() => {
+        history.push("/");
+        window.location.reload();
+      })
+      .catch(err => {
+        alert("There was an error while trying to delete this gift");
+        window.location.reload();
+        console.log("ItemDetails requestDelete():", err);
       })
   }
 
@@ -99,12 +115,14 @@ function ItemDetails({history, match, userDetails})
           <ItemDetailsActions 
             currUserListId={userDetails.list_id} 
             list_id={itemInfo.list_id}
+            itemName={itemInfo.name}
             currUserName={userDetails.first_name} 
             first_name={itemInfo.first_name}
             external_link={itemInfo.external_link}
             itemId={itemInfo.id}
             requestClaimSubmit={requestClaimSubmit}
             requestReleaseSubmit={requestReleaseSubmit}
+            requestDelete={requestDelete}
           />
         </div>
       </main>

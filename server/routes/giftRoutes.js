@@ -1,3 +1,7 @@
+/* ------------------------------------------------------------
+ * ROUTES TO /gifts
+ * ------------------------------------------------------------ */
+
 const express = require("express");
 const path = require('path');
 const { v1: uuidv1 } = require('uuid');
@@ -11,9 +15,9 @@ router.use(fileUpload({
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
 }));
 
-/* --------------------------------------------------
- * ROUTES TO /gifts
- * -------------------------------------------------- */
+/* ------------------------------------------------------------
+ * FETCH GIFT INFO
+ * ------------------------------------------------------------ */
 
 router.get("/:id", (req, res) => {
   const id = req.params.id;
@@ -30,6 +34,10 @@ router.get("/:id", (req, res) => {
     utils.logResponse(res);
   })
 })
+
+/* ------------------------------------------------------------
+ * CLAIM, RELEASE, EDIT
+ * ------------------------------------------------------------ */
 
 router.put("/:id/claim", (req, res) => {
   const itemId = req.params.id;
@@ -111,6 +119,10 @@ router.put("/:id/edit", (req, res) => {
     console.error(`/gifts/${gift_id}/edit DB ERROR:`, err);
   })
 })
+
+/* ------------------------------------------------------------
+ * CREATE NEW GIFT
+ * ------------------------------------------------------------ */
 
 router.post("/new", (req, res) => {
   if (req.files === null) {

@@ -1,0 +1,77 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.ModalDelete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255,255,255,.25);
+  backdrop-filter: blur(5px);
+  transition: all .2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50vw;
+    min-width: 18rem;
+    height: 50vh;
+    border-radius: 1.5rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    text-align: center;
+    font-weight: 700;
+    color: $color_yellow_light;
+    background-color: $color_red_primary;
+  }
+
+  &__heading {
+    @include font_size_heading2;
+  }
+
+  &__paragraph {
+    @include font_size_paragraph;
+    margin-top: 1rem;
+  }
+
+  &__button {
+    @include button_reset;
+    margin-top: 1rem;
+    padding: .5rem 1.5rem;
+    border-radius: 3rem;
+    transition: all .2s;
+  
+    &:hover {
+      transform: translateY(-.2rem);
+    }
+
+    &:focus {
+      outline: none;
+    };
+
+    &--cancel {
+      @extend .ModalDelete__button;
+      margin-right: 1rem;
+      color: $color_blue_primary;
+      background-color: $color_yellow_primary;
+    }
+
+    &--delete {
+      @extend .ModalDelete__button;
+      background: transparent;
+      color: $color_yellow_light;
+      border: 1px solid $color_yellow_light;
+    }
+  }
+}

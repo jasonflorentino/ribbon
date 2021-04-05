@@ -7,7 +7,7 @@
   flex-wrap: wrap;
 
   @include desktop {
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   &__button {
@@ -30,6 +30,12 @@
 
     &:focus {
       outline: none;
+    }
+
+    &--delete {
+      @extend .ItemDetailsActions__button;
+      color: $color_bw_white;
+      background-color: $color_red_primary;
     }
 
     &--edit {
