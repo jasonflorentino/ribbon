@@ -67,7 +67,7 @@ function Dashboard({userDetails, setIsAuthenticated})
                     )
                   }} />
                   <Route path="/item/new" render={props => {
-                    return <ItemNew {...props} setRequireUpdate={setRequireUpdate} />
+                    return <ItemNew {...props} userDetails={userDetails} setRequireUpdate={setRequireUpdate} />
                   }} />
                   <Route path="/item/:id/edit" render={props => {
                     return <ItemDetailsEdit {...props} setRequireUpdate={setRequireUpdate} />
