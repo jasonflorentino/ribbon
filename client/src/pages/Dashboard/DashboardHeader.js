@@ -3,14 +3,14 @@ import MainHeading from "../../components/MainHeading/MainHeading";
 import utils from "../../utils";
 import "./DashboardHeader.scss";
 
-function DashboardHeader({userImage})
+function DashboardHeader({userDetails})
 { 
   return (
     <header className="DashboardHeader">
-      <UserImage 
+      <UserImage
         role="main" 
-        linkPath="/user/profile/id"
-        imgSrc={utils.getPublicUrl(userImage)} 
+        linkPath={`/user/profile/${userDetails.id}`}
+        imgSrc={utils.getPublicUrl(userDetails.image)} 
         altText="User image" 
       />
       <MainHeading text="Your wish list" />

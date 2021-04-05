@@ -54,7 +54,7 @@ function UserList({match, userDetails, history})
   return loading ? 
     <Loading />  :
     <FadeIn>
-      <UserListHeader firstName={user.first_name} userImage={user.image} />
+      <UserListHeader linkPath={`/user/profile/${id}`} firstName={user.first_name} userImage={user.image} />
       <ItemGrid items={items} owner={false} userDetails={userDetails} requestClaimGift={requestClaimGift} />
     </FadeIn>
 }

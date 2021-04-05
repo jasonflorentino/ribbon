@@ -1,7 +1,14 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./UserImage.scss";
 
-function UserImage({role, name, linkPath, imgSrc, altText}) {
+function UserImage({role,
+                    name, 
+                    linkPath, 
+                    imgSrc, 
+                    altText}) 
+{
+  const [mouseOver, setMouseOver] = useState(false);
 
   let classText = "";
   switch (role) {
@@ -21,8 +28,17 @@ function UserImage({role, name, linkPath, imgSrc, altText}) {
 
   return (
     <>
-      <Link className="UserImage__link" to={linkPath}>
-        <img className={classText} src={imgSrc} alt={altText} />
+      <Link 
+        className="UserImage__link" to={linkPath}
+        onMouseEnter={() => setMouseOver(true)} 
+        onMouseLeave={() => setMouseOver(false)}
+      >
+        {(mouseOver && role === "main") && <div className="UserImage__hoverLink">View Profile</div>}
+        <img 
+          className={classText} 
+          src={imgSrc} 
+          alt={altText} 
+        />
         {role === "sidebar" && <span className="UserImage__name">{name}</span>}
       </Link>
     </>

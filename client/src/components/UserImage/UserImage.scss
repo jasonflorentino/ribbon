@@ -12,21 +12,53 @@
     align-items: center;
     text-decoration: none;
     color: $color_bw_dark;
+    position: relative;
+    margin-right: 1rem;
+  
+    @include tablet {
+      margin-right: 1.25rem;
+    }
+    
+    @include desktop {
+      margin-right: 1.5rem;
+    }
+  }
+
+  &__hoverLink {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color_red_primary;
+    border-radius: 50%;
+    color: $color_yellow_light;
+    font-weight: 700;
+    font-size: .9rem;
+
+    width: 6rem;
+    height: 6rem;
+  
+    @include tablet {
+      width: 7.5rem;
+      height: 7.5rem;
+    }
+    
+    @include desktop {
+      width: 9rem;
+      height: 9rem;
+    }
   }
 
   &--main {
     @extend .UserImage;
     width: 6rem;
-    margin-right: 1rem;
   
     @include tablet {
       width: 7.5rem;
-      margin-right: 1.25rem;
     }
     
     @include desktop {
       width: 9rem;
-      margin-right: 1.5rem;
     }
   }
 

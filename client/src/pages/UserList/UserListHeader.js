@@ -3,13 +3,13 @@ import MainHeading from "../../components/MainHeading/MainHeading";
 import utils from "../../utils";
 import "./UserListHeader.scss";
 
-function UserListHeader({firstName, userImage})
+function UserListHeader({firstName, userImage, linkPath})
 { 
   return (
     <header className="UserListHeader">
       <UserImage 
         role="main" 
-        linkPath="/user/profile/id"
+        linkPath={linkPath}
         imgSrc={utils.getPublicUrl(userImage)} 
         altText="User image" 
       />

@@ -61,7 +61,7 @@ function Dashboard({userDetails, setIsAuthenticated})
                   <Route path="/" exact render={_props => {
                     return (
                       <FadeIn>
-                        <DashboardHeader userImage={userDetails.image} />
+                        <DashboardHeader userDetails={userDetails} />
                         <ItemGrid items={listItems} isOwner={true} />
                       </FadeIn>
                     )
