@@ -174,4 +174,25 @@ router.post("/new", (req, res) => {
     })
 })
 
+/* ------------------------------------------------------------
+ * DELETE GIFT
+ * ------------------------------------------------------------ */
+
+router.delete("/:id", (req, res) => {
+  const id = req.params.id;
+  const query = "DELETE FROM gifts WHERE (id = :id);"
+
+  Bookshelf.knex.raw(query, {id: id})
+  .then(result => {
+    console.log(result);
+    res.status(204).send();
+    utils.logResponse(res); 
+  })
+  .catch(err => {
+    console.log("ERROR in giftRoutes DELETE /:id - ", err.message);
+    res.status(500).json({message: "Couldn't delete gift"})
+    utils.logResponse(res);
+  })
+})
+
 module.exports = router;
