@@ -1,8 +1,15 @@
 const express = require("express");
+const path = require('path');
+const { v1: uuidv1 } = require('uuid');
+const fileUpload = require("express-fileupload");
 const utils = require("../utils");
 const Bookshelf = require("../bookshelf");
 
 const router = express.Router();
+
+router.use(fileUpload({
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
+}));
 
 /* --------------------------------------------------
  * ROUTES TO /gifts
@@ -103,6 +110,56 @@ router.put("/:id/edit", (req, res) => {
     utils.logResponse(res);
     console.error(`/gifts/${gift_id}/edit DB ERROR:`, err);
   })
+})
+
+router.post("/new", (req, res) => {
+  if (req.files === null) {
+    res.status(400).json({message: "No file uploaded"});
+    utils.logResponse(res)
+    return;
+  }
+
+  if (!req.body || !req.body.itemDetails) {
+    res.status(400).json({message: "You must provide proper item details"});
+    utils.logResponse(res)
+    return;
+  }
+
+  const imageFile = req.files.image;
+  const details = JSON.parse(req.body.itemDetails);
+
+  const nameArr = imageFile.name.split(".");
+  const ext = nameArr[nameArr.length - 1];
+  imageFile.name = uuidv1() + "." + ext;
+
+  const query_gift = "INSERT INTO gifts (list_id, name) VALUES (:list_id, :name);"
+  const query_details = "INSERT INTO gift_details (gift_id, image, price, color, size, description, external_link) VALUES (:gift_id, :image, :price, :color, :size, :description, :external_link);"
+
+  let gift_id;
+  Bookshelf.knex.raw(query_gift, {list_id: details.list_id, name: details.name})
+    .then(result => {
+      gift_id = result[0].insertId;
+      return Promise.all([
+        imageFile.mv(path.join(__dirname, `../public/${imageFile.name}`)),
+        Bookshelf.knex.raw(query_details, {
+          gift_id: gift_id, 
+          image: imageFile.name,
+          price: details.price,
+          color: details.color,
+          size: details.size,
+          description: details.description,
+          external_link: details.external_link
+        })
+      ])
+    })
+    .then(() => {
+      res.status(201).json({message: `Item ${gift_id} created successfully!`})
+    })
+    .catch(err => {
+      res.status(500).send(err);
+      utils.logResponse(res);
+      console.error("Create New Gift ERROR:", err);
+    })
 })
 
 module.exports = router;
