@@ -11,8 +11,8 @@ function App()
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
-  
-  useEffect(() => {
+
+  const checkAuth = () => {
     const token = sessionStorage.getItem("authToken");
     if (!token) return setIsLoading(false);
     const url = process.env.REACT_APP_API_URL + "/check-auth";
@@ -44,6 +44,10 @@ function App()
           window.location.replace("/");
         }
       })
+  }
+  
+  useEffect(() => {
+    checkAuth();
   }, [isAuthenticated])
 
   return (
