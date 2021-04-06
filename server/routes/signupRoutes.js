@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const utils = require("../utils");
 const User = require("../models/user");
 const List = require("../models/list");
+const Person = require("../models/person");
 
 const router = express.Router();
 const secret = process.env.JWT_SECRET;
@@ -37,7 +38,9 @@ router.post("/", (req, res) => {
       .save()
       .then(newUser => {
         new List({user_id: newUser.id})
-          .save()
+          .save().then(res => console.log("newList", res))
+        new Person({user_id: newUser.id})
+          .save().then(res => console.log("newPerson", res))
         const resBody = { token: jwt.sign({ user: newUser.attributes.uuid }, secret, {expiresIn: '1h'}) }
         res.status(201).json(resBody)
         utils.logResponse(res)

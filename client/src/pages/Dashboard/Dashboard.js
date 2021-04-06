@@ -42,7 +42,11 @@ function Dashboard({userDetails, setIsAuthenticated})
       setRequireUpdate(false);
       setLoading(false);
     })
-    .catch(err => {console.log(err)})
+    .catch(err => {
+      console.log(err);
+      setRequireUpdate(false);
+      setLoading(false);
+    })
   }, [requireUpdate])
 
   return loading ? <Loading /> :

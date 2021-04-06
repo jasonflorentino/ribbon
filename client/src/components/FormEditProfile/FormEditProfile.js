@@ -1,11 +1,10 @@
 import { useReducer } from "react";
 import InputType from "../InputType/InputType";
-import InputTextarea from "../InputTextarea/InputTextarea";
 import "./FormEditProfile.scss";
 import axios from "axios";
 import utils from "../../utils";
 
-function FormEditProfile({userData, history, userUuid})
+function FormEditProfile({userData, userUuid})
 {
   const {
     first_name = "", 

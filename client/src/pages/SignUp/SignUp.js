@@ -21,7 +21,9 @@ function SignUp({setIsAuthenticated, history, setIsLoading})
         setIsSignUpError(false);
         setIsLoading(true);
         setIsAuthenticated(true);
-        history.push("/")
+      })
+      .then(() => {
+        history.push("/");
       })
       .catch((err) => {
         setErrorMessage(err.response.data.message);

@@ -72,12 +72,21 @@ app.get("/check-auth", (req, res) => {
     return `SELECT p.image, p.first_name, l.id AS list_id FROM people AS p INNER JOIN users AS u LEFT JOIN lists AS l ON l.user_id = u.id WHERE p.user_id = u.id AND u.uuid = '${uuid}';`
   }
   Bookshelf.knex.raw(query(req.decode.user))
-  .then(arr => {
-    const data = arr[0][0];
-    req.decode.image = data.image;
+  .then(result => {
+    if (result[0].length === 0) {
+      res.status(403).json({message: "Couldn't authenticate user"})
+      utils.logResponse(res); 
+      return;
+    }
+    const data = result[0][0];
+    req.decode.image = data.image || "placeholder.png";
     req.decode.first_name = data.first_name;
     req.decode.list_id = data.list_id;
     res.status(200).json(req.decode)
+    utils.logResponse(res); 
+  })
+  .catch(err => {
+    res.status(500).json({message: "There was an error with the server"})
     utils.logResponse(res); 
   })
 });
