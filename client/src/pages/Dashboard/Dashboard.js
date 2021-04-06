@@ -9,8 +9,10 @@ import ItemGrid from "../../components/ItemGrid/ItemGrid";
 import Loading from "../../components/Loading/Loading";
 import ItemDetails from "../ItemDetails/ItemDetails";
 import ItemDetailsEdit from "../ItemDetailsEdit/ItemDetailsEdit";
-import UserList from "../UserList/UserList";
 import ItemNew from "../ItemNew/ItemNew";
+import UserList from "../UserList/UserList";
+import UserProfile from "../UserProfile/UserProfile";
+import UserProfileEdit from "../UserProfileEdit/UserProfileEdit";
 import utils from "../../utils";
 import "./Dashboard.scss";
 
@@ -74,6 +76,12 @@ function Dashboard({userDetails, setIsAuthenticated})
                   }} />
                   <Route path="/item/:id" render={props => {
                     return <ItemDetails {...props} userDetails={userDetails} />
+                  }} />
+                  <Route path="/user/profile/edit" render={props => {
+                    return <UserProfileEdit {...props} userDetails={userDetails} />
+                  }} />
+                  <Route path="/user/profile/:id" render={props => {
+                    return <UserProfile {...props} userDetails={userDetails} />
                   }} />
                   <Route path="/user/:id" render={props => {
                     return <UserList 

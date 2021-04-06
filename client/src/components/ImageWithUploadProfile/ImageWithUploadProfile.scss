@@ -1,0 +1,96 @@
+@use "../../styles/variables" as *;
+@use "../../styles/mixins" as *;
+
+.ImageWithUploadProfile {
+  flex: 1 1 0;
+  width: 100%;
+  max-height: 30rem;
+  position: relative;
+  
+  &__image {
+    width: 100%;
+    max-height: 30rem;
+    // height: 100%;
+    object-fit: cover;
+    border-radius: 1rem;
+  }
+
+  &__form {
+    width: 100%;
+    padding: .75rem 1rem;
+    bottom: 0px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+  }
+
+  &__fileInputContainer {
+    margin-right: 1rem;
+    position: relative;
+    flex: 3 1 0;
+  }
+  
+  &__inputFile {
+    opacity: 0;
+    height: 3rem;
+    background-color: $color_yellow_light;
+  }
+  
+  &__inputFileLabel {
+    width: 100%;
+    height: 2.5rem;
+    padding: .5rem 1rem;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    @include font_size_paragraph;
+    color: $color_blue_primary;
+    font-weight: 700;
+    overflow: hidden;
+    background-color: $color_yellow_light;
+    border-radius: 2.5rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: all .2s;
+
+    &:hover {
+      transform: translateY(-55%);
+      box-shadow: 0 .4rem 1rem -.25rem rgba(0,0,0,0.2);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px $color_red_primary;
+    }
+
+    &::after {
+      content: "Browse";
+      position: absolute;
+      padding: .3rem 1rem;
+      right: 0;
+      color: $color_bw_white;
+      border-radius: 0 2.5rem 2.5rem 0;
+      background-color: $color_blue_primary;
+      height: 2.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  
+  &__submit {
+    height: 2.5rem;
+    flex: 1 1 0;
+    @include button_reset;
+    border-radius: 2.5rem;
+    background-color: $color_yellow_primary;
+    color: $color_red_primary;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px $color_red_primary;
+    }
+
+    @include hover_rise;
+  }
+}

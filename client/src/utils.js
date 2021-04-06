@@ -5,7 +5,8 @@ const utilFunctions = {
   makeFullName: makeFullName,
   verifyImageFile: verifyImageFile,
   makeDateString: makeDateString,
-  makeCountdownString: makeCountdownString
+  makeCountdownString: makeCountdownString,
+  getYYYYMMDDStringFromDate: getYYYYMMDDStringFromDate
 }
 
 function assertValidEmail(str) {
@@ -77,6 +78,12 @@ function makeCountdownString(date) {
                    : `${Math.floor(weeks/4)} months away`
     return string
   }
+}
+
+function getYYYYMMDDStringFromDate(date) {
+  const offset = date.getTimezoneOffset()
+  date = new Date(date.getTime() + (offset*60*1000))
+  return date.toISOString().split("T")[0]
 }
 
 export default utilFunctions;

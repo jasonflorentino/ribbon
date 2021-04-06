@@ -74,7 +74,7 @@ function FormEditGift({itemInfo, history, setRequireUpdate})
         history.push(`/item/${id}`);
       })
       .catch(err => {
-        alert("An error occurred while trying to upload the file.");
+        alert("An error occurred while trying to update the information.");
         console.error("FormEditGift - handleSubmit():", err);
       })
   }
@@ -92,7 +92,7 @@ function FormEditGift({itemInfo, history, setRequireUpdate})
         error={formInput.nameError}
         errorMsg={formInput.nameErrorMsg}
       />
-      <label className="FormEditGift__label" htmlFor="name">Price</label>
+      <label className="FormEditGift__label" htmlFor="price">Price</label>
       <InputType 
         type="text" 
         className="FormEditGift__inputText FormEditGift__price"
@@ -105,7 +105,7 @@ function FormEditGift({itemInfo, history, setRequireUpdate})
       />
       <div className="FormEditGift__splitRow">
         <div className="FormEditGift__size">
-          <label className="FormEditGift__label" htmlFor="name">Size</label>
+          <label className="FormEditGift__label" htmlFor="size">Size</label>
           <InputType 
             type="text" 
             className="FormEditGift__inputText"
@@ -116,7 +116,7 @@ function FormEditGift({itemInfo, history, setRequireUpdate})
           />
         </div>
         <div className="FormEditGift__color">
-          <label className="FormEditGift__label" htmlFor="name">Color</label>
+          <label className="FormEditGift__label" htmlFor="color">Color</label>
           <InputType 
             type="text" 
             className="FormEditGift__inputText"
@@ -127,7 +127,7 @@ function FormEditGift({itemInfo, history, setRequireUpdate})
           />
         </div>
       </div>
-      <label className="FormEditGift__label" htmlFor="name">Description</label>
+      <label className="FormEditGift__label" htmlFor="description">Description</label>
       <InputTextarea 
         name="description"
         placeholder="Enter a description"

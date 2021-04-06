@@ -26,7 +26,7 @@ function UserProfile({history, match, userDetails})
         setLoading(false);
       })
       .catch(err => {
-        alert("An error occurred while loading this user's list!")
+        alert("An error occurred while getting your information")
         history.goBack();
         console.log("UserProfile FetchData():", err);
       })
