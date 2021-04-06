@@ -67,6 +67,21 @@
   }
 }
 
+@mixin font_size_heading3 {
+  font-size: 1rem;
+  line-height: 1.2rem;
+
+  @include tablet {
+    font-size: 1.1rem;
+    line-height: 1.4rem;
+  }
+
+  @include desktop {
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+  }
+}
+
 @mixin font_size_paragraph {
   font-size: .9rem;
 

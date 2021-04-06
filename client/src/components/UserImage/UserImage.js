@@ -26,22 +26,26 @@ function UserImage({role,
       break;
   }
 
-  return (
-    <>
-      <Link 
-        className="UserImage__link" to={linkPath}
-        onMouseEnter={() => setMouseOver(true)} 
-        onMouseLeave={() => setMouseOver(false)}
-      >
-        {(mouseOver && role === "main") && <div className="UserImage__hoverLink">View Profile</div>}
-        <img 
-          className={classText} 
-          src={imgSrc} 
-          alt={altText} 
-        />
-        {role === "sidebar" && <span className="UserImage__name">{name}</span>}
-      </Link>
-    </>
+  return role === "hero" ? (
+    <img 
+      className={classText} 
+      src={imgSrc} 
+      alt={altText} 
+    />
+  ) : (
+    <Link 
+      className="UserImage__link" to={linkPath}
+      onMouseEnter={() => setMouseOver(true)} 
+      onMouseLeave={() => setMouseOver(false)}
+    >
+      {(mouseOver && role === "main") && <div className="UserImage__hoverLink">View Profile</div>}
+      <img 
+        className={classText} 
+        src={imgSrc} 
+        alt={altText} 
+      />
+      {role === "sidebar" && <span className="UserImage__name">{name}</span>}
+    </Link>
   )
 }
 
