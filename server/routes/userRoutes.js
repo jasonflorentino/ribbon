@@ -42,4 +42,44 @@ router.get("/profile/:id", (req, res) => {
     })
 })
 
+router.put("/:id", (req, res) => {
+  if ( !req.body 
+    || !req.body.first_name 
+    || !req.body.last_name 
+  ) {
+    res.status(400).json({message: "You must provide proper user details"});
+    utils.logResponse(res);
+    return;
+  }
+
+  const { 
+    uuid,
+    first_name, 
+    last_name, 
+    date_of_birth = "NULL", 
+    interests = "NULL", 
+    allergies = "NULL", 
+    sizes = "NULL" 
+  } = req.body;
+
+  const id = req.params.id;
+  const query = "UPDATE people SET first_name = :first_name, last_name = :last_name, date_of_birth = :date_of_birth, interests = :interests, allergies = :allergies, sizes = :sizes WHERE (user_id = (SELECT users.id FROM users WHERE users.uuid = :uuid));"
+
+  Bookshelf.knex.raw(query, {first_name: first_name,
+                             last_name: last_name,
+                             date_of_birth: date_of_birth,
+                             interests: interests,
+                             allergies: allergies,
+                             sizes: sizes,
+                             uuid: uuid})
+  .then(result => {
+    res.status(200).json(result);
+  })
+  .catch(err => {
+    console.log("ERROR in userRoutes PUT /:id - ", err.message);
+    res.status(500).json({message: "Couldn't update data"})
+    utils.logResponse(res);
+  })
+})
+
 module.exports = router;
