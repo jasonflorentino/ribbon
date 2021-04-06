@@ -10,6 +10,46 @@ router.use(fileUpload({
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
 }));
 
+router.post("/user", (req, res) => {
+  if (req.files === null) {
+    res.status(400).json({message: "No file uploaded"});
+    utils.logResponse(res)
+    return;
+  }
+
+  if (!req.body || !req.body.userUuid) {
+    res.status(400).json({message: "A user ID must be provided"});
+    utils.logResponse(res)
+    return;
+  }
+
+  const file = req.files.file;
+  const userUuid = req.body.userUuid;
+
+  const nameArr = file.name.split(".");
+  const ext = nameArr[nameArr.length - 1];
+  file.name = uuidv1() + "." + ext;
+
+  const query = "UPDATE people SET image = :fileName WHERE (user_id = (SELECT users.id FROM users WHERE users.uuid = :uuid));"
+
+  console.log(file.name);
+  console.log(userUuid);
+
+  Promise.all([
+    file.mv(path.join(__dirname, `../public/${file.name}`)),
+    Bookshelf.knex.raw(query, {fileName: file.name, uuid: userUuid}),
+  ])
+  .then(() => {
+    res.status(200).json({fileName: file.name});
+    utils.logResponse(res);
+  })
+  .catch(err => {
+    res.status(500).send(err);
+    utils.logResponse(res);
+    console.error("/upload file.mv ERROR:", err);
+  })
+})
+
 router.post("/", (req, res) => {
   if (req.files === null) {
     res.status(400).json({message: "No file uploaded"});
