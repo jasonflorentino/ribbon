@@ -91,6 +91,7 @@ function Dashboard({userDetails, setIsAuthenticated})
                     return <UserList 
                       {...props} 
                       userDetails={userDetails}
+                      setRequireUpdate={setRequireUpdate}
                     />
                   }} />
                 </Switch>
