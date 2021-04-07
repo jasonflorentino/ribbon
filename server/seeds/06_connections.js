@@ -6,7 +6,7 @@ exports.seed = function (knex) {
     .then(() => knex("users").pluck("id"))
     .then((userIds) => {
       return connectionsData.map((conection, i) => {
-        // i = i + 1;
+        // Connect everyone to each other
         const j = (i < userIds.length-1) ? i+1 : 0;
         conection.requester_id = userIds[i];
         conection.addressee_id = userIds[j];

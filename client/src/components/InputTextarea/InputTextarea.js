@@ -1,15 +1,11 @@
 import "./InputTextarea.scss";
 
-function InputTextarea(
-  {
-    type = "text",
-    className = "",
-    name = "",
-    placeholder = "",
-    value = "",
-    onChange
-  }
-)
+function InputTextarea({type = "text",
+                        className = "",
+                        name = "",
+                        placeholder = "",
+                        value = "",
+                        onChange})
 {
   return (
     <textarea

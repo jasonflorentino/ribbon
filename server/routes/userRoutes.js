@@ -1,8 +1,16 @@
+/* ------------------------------------------------------------
+ * ROUTES TO /user
+ * ------------------------------------------------------------ */
+
 const express = require("express");
 const utils = require("../utils");
 const Bookshelf = require("../bookshelf");
 
 const router = express.Router();
+
+/* ------------------------------------------------------------
+ * GET a given user's list items and basic info
+ * ------------------------------------------------------------ */
 
 router.get("/:id", (req, res) => {
   const id = req.params.id;
@@ -27,6 +35,10 @@ router.get("/:id", (req, res) => {
   })
 })
 
+/* ------------------------------------------------------------
+ * GET a user's detailed profile info
+ * ------------------------------------------------------------ */
+
 router.get("/profile/:id", (req, res) => {
   const id = req.params.id;
   const query = "SELECT p.first_name, p.last_name, p.date_of_birth, p.image, p.interests, p.allergies, p.sizes, p.user_id FROM people as p INNER JOIN users ON users.id = p.user_id WHERE (users.uuid = :id)"
@@ -41,6 +53,10 @@ router.get("/profile/:id", (req, res) => {
       utils.logResponse(res);
     })
 })
+
+/* ------------------------------------------------------------
+ * PUT to edit user's details
+ * ------------------------------------------------------------ */
 
 router.put("/:id", (req, res) => {
   if ( !req.body 

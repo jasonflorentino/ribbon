@@ -1,18 +1,14 @@
 import InputError from '../InputError/InputError';
 import "./InputType.scss";
 
-function InputType(
-{
-    type,
-    className, 
-    name, 
-    value, 
-    onChange, 
-    placeholder, 
-    error, 
-    errorMsg
-  }
-)
+function InputType({type,
+                    className, 
+                    name, 
+                    value, 
+                    onChange, 
+                    placeholder, 
+                    error, 
+                    errorMsg})
 {
   return (
     <>

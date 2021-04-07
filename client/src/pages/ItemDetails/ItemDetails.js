@@ -53,7 +53,7 @@ function ItemDetails({history, match, userDetails})
     const url = process.env.REACT_APP_API_URL + `/gifts/${itemId}/release?user=${claimerUuid}`;
     axios
       .put(url,{},{headers: utils.getAuthHeader()})
-      .then(res => {
+      .then(_res => {
         fetchData();
       })
       .catch(err => {

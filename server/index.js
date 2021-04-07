@@ -37,7 +37,6 @@ app.use("/public", (req, res, next) => {
   return;
 });
 
-
 // Verify JSON web token
 app.use((req, res, next) => {
   if (publicRoutes.includes(req.url)) next();
@@ -67,11 +66,11 @@ app.use((req, res, next) => {
  * ROUTES 
  *========*/
 
+// Provide user's info to front end from token
 app.get("/check-auth", (req, res) => {
-  const query = function(uuid) {
-    return `SELECT p.image, p.first_name, l.id AS list_id FROM people AS p INNER JOIN users AS u LEFT JOIN lists AS l ON l.user_id = u.id WHERE p.user_id = u.id AND u.uuid = '${uuid}';`
-  }
-  Bookshelf.knex.raw(query(req.decode.user))
+  const query = "SELECT p.image, p.first_name, l.id AS list_id FROM people AS p INNER JOIN users AS u LEFT JOIN lists AS l ON l.user_id = u.id WHERE p.user_id = u.id AND u.uuid = :uuid;";
+
+  Bookshelf.knex.raw(query, {uuid: req.decode.user})
   .then(result => {
     if (result[0].length === 0) {
       res.status(403).json({message: "Couldn't authenticate user"})
@@ -87,6 +86,7 @@ app.get("/check-auth", (req, res) => {
   })
   .catch(err => {
     res.status(500).json({message: "There was an error with the server"})
+    console.error(err);
     utils.logResponse(res); 
   })
 });

@@ -5,10 +5,8 @@ import "./Logo.scss";
 
 function Logo({color})
 {
-  const getLogoSrc = (color) =>
-  {
-    switch (color)
-    {
+  const getLogoSrc = (color) => {
+    switch (color) {
       case "negative":
         return LogoNegative;
       case "positive":

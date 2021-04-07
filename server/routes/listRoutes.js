@@ -1,3 +1,7 @@
+/* ------------------------------------------------------------
+ * ROUTES TO /list
+ * ------------------------------------------------------------ */
+
 const express = require("express");
 const utils = require("../utils");
 const User = require("../models/user");
@@ -7,6 +11,10 @@ const GiftDetail = require("../models/gift_detail");
 const Bookshelf = require("../bookshelf");
 
 const router = express.Router();
+
+/* ------------------------------------------------------------
+ * GET items in a user's list
+ * ------------------------------------------------------------ */
 
 router.get("/", (req, res) => {
 

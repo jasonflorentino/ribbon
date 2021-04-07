@@ -24,7 +24,7 @@ function ItemNew({history, userDetails, setRequireUpdate})
   const onFileSelect = e => {
     const file = e.target.files[0];
 
-    // utils.verifyImageFile() will call alerts on error
+    // NOTE: verifyImageFile() will call alerts on error
     if (utils.verifyImageFile(file)) { 
       setFile(file);
       setFilename(file.name);

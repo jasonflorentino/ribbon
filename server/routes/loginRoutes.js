@@ -1,3 +1,7 @@
+/* ------------------------------------------------------------
+ * ROUTES TO /login
+ * ------------------------------------------------------------ */
+
 const express = require("express");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
@@ -6,6 +10,10 @@ const User = require("../models/user");
 
 const router = express.Router();
 const secret = process.env.JWT_SECRET;
+
+/* ------------------------------------------------------------
+ * POST to log user in
+ * ------------------------------------------------------------ */
 
 router.post("/", (req, res) => {
   const { email, password } = req.body;

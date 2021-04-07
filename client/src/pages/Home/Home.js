@@ -15,6 +15,7 @@ function Home({location, setIsAuthenticated, setIsLoading})
   const [showLogin, setShowLogin] = useState(true);
   const [showSignUp, setShowSignUp] = useState(true);
   const [colorTheme, setColorTheme] = useState("positive");
+  
   useEffect(() => {
     switch (location.pathname) {
       case "/":

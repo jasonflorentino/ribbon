@@ -5,7 +5,6 @@ import UserListHeader from "./UserListHeader";
 import ItemGrid from "../../components/ItemGrid/ItemGrid";
 import Loading from "../../components/Loading/Loading";
 import utils from "../../utils";
-import "./UserList.scss";
 
 function UserList({match, userDetails, history, setRequireUpdate})
 {
@@ -51,14 +50,6 @@ function UserList({match, userDetails, history, setRequireUpdate})
     checkConnection();
     // eslint-disable-next-line
   }, [id])
-
-    // Force update of cached image in other components on unmount
-    // useEffect(() => {
-    //   return () => {
-    //     window.location.reload();
-    //   }
-    //   // eslint-disable-next-line
-    // }, [])
 
   const requestClaimGift = (claimerId, itemId) => {
     const url = process.env.REACT_APP_API_URL + `/gifts/${itemId}/claim?user=${claimerId}`;

@@ -51,55 +51,53 @@ function Dashboard({userDetails, setIsAuthenticated})
 
   return loading ? <Loading /> :
     (
-      <>
-        <div className="Dashboard">
-          <FadeIn className="Dashboard__fadeContainer">
-            <Header color="positive" logout={true} setIsAuthenticated={setIsAuthenticated} />
-            <main className="Dashboard__main">
-              <section className="main__sidebar">
-                <ConnectionsSideBar 
-                  connections={connections} 
-                  userDetails={userDetails}
-                />
-              </section>
-              <section className="main__content">
-                <Switch>
-                  <Route path="/" exact render={_props => {
-                    return (
-                      <FadeIn>
-                        <DashboardHeader userDetails={userDetails} />
-                        <ItemGrid items={listItems} isOwner={true} />
-                      </FadeIn>
-                    )
-                  }} />
-                  <Route path="/item/new" render={props => {
-                    return <ItemNew {...props} userDetails={userDetails} setRequireUpdate={setRequireUpdate} />
-                  }} />
-                  <Route path="/item/:id/edit" render={props => {
-                    return <ItemDetailsEdit {...props} setRequireUpdate={setRequireUpdate} />
-                  }} />
-                  <Route path="/item/:id" render={props => {
-                    return <ItemDetails {...props} userDetails={userDetails} />
-                  }} />
-                  <Route path="/user/profile/edit" render={props => {
-                    return <UserProfileEdit {...props} userDetails={userDetails} />
-                  }} />
-                  <Route path="/user/profile/:id" render={props => {
-                    return <UserProfile {...props} userDetails={userDetails} />
-                  }} />
-                  <Route path="/user/:id" render={props => {
-                    return <UserList 
-                      {...props} 
-                      userDetails={userDetails}
-                      setRequireUpdate={setRequireUpdate}
-                    />
-                  }} />
-                </Switch>
-              </section>
-            </main>
-          </FadeIn>
-        </div>
-      </>
+      <div className="Dashboard">
+        <FadeIn className="Dashboard__fadeContainer">
+          <Header color="positive" logout={true} setIsAuthenticated={setIsAuthenticated} />
+          <main className="Dashboard__main">
+            <section className="main__sidebar">
+              <ConnectionsSideBar 
+                connections={connections} 
+                userDetails={userDetails}
+              />
+            </section>
+            <section className="main__content">
+              <Switch>
+                <Route path="/" exact render={_props => {
+                  return (
+                    <FadeIn>
+                      <DashboardHeader userDetails={userDetails} />
+                      <ItemGrid items={listItems} isOwner={true} />
+                    </FadeIn>
+                  )
+                }} />
+                <Route path="/item/new" render={props => {
+                  return <ItemNew {...props} userDetails={userDetails} setRequireUpdate={setRequireUpdate} />
+                }} />
+                <Route path="/item/:id/edit" render={props => {
+                  return <ItemDetailsEdit {...props} setRequireUpdate={setRequireUpdate} />
+                }} />
+                <Route path="/item/:id" render={props => {
+                  return <ItemDetails {...props} userDetails={userDetails} />
+                }} />
+                <Route path="/user/profile/edit" render={props => {
+                  return <UserProfileEdit {...props} userDetails={userDetails} />
+                }} />
+                <Route path="/user/profile/:id" render={props => {
+                  return <UserProfile {...props} userDetails={userDetails} />
+                }} />
+                <Route path="/user/:id" render={props => {
+                  return <UserList 
+                    {...props} 
+                    userDetails={userDetails}
+                    setRequireUpdate={setRequireUpdate}
+                  />
+                }} />
+              </Switch>
+            </section>
+          </main>
+        </FadeIn>
+      </div>
     )
 }
 

@@ -1,3 +1,7 @@
+/* ------------------------------------------------------------
+ * ROUTES TO /upload
+ * ------------------------------------------------------------ */
+
 const express = require("express");
 const path = require('path');
 const { v1: uuidv1 } = require('uuid');
@@ -9,6 +13,10 @@ const router = express.Router();
 router.use(fileUpload({
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
 }));
+
+/* ------------------------------------------------------------
+ * POST to upload user image
+ * ------------------------------------------------------------ */
 
 router.post("/user", (req, res) => {
   if (req.files === null) {
@@ -32,9 +40,6 @@ router.post("/user", (req, res) => {
 
   const query = "UPDATE people SET image = :fileName WHERE (user_id = (SELECT users.id FROM users WHERE users.uuid = :uuid));"
 
-  console.log(file.name);
-  console.log(userUuid);
-
   Promise.all([
     file.mv(path.join(__dirname, `../public/${file.name}`)),
     Bookshelf.knex.raw(query, {fileName: file.name, uuid: userUuid}),
@@ -49,6 +54,10 @@ router.post("/user", (req, res) => {
     console.error("/upload file.mv ERROR:", err);
   })
 })
+
+/* ------------------------------------------------------------
+ * POST to upload gift image
+ * ------------------------------------------------------------ */
 
 router.post("/", (req, res) => {
   if (req.files === null) {

@@ -1,9 +1,17 @@
+/* ------------------------------------------------------------
+ * ROUTES TO /connections
+ * ------------------------------------------------------------ */
+
 const express = require("express");
 const utils = require("../utils");
 const User = require("../models/user");
 const Bookshelf = require('../bookshelf');
 
 const router = express.Router();
+
+/* ------------------------------------------------------------
+ * GET USERS CONNECTIONS
+ * ------------------------------------------------------------ */
 
 router.get("/", (req, res) => {
 
@@ -25,6 +33,11 @@ router.get("/", (req, res) => {
       utils.logResponse(res);
     })
 })
+
+/* ------------------------------------------------------------
+ * CHECK IF TWO USERS ARE CONNECTED
+ * Create a new connection if not
+ * ------------------------------------------------------------ */
 
 router.get("/check/:id", (req, res) => {
   const targetUuid = req.params.id;
