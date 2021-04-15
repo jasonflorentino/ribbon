@@ -3,7 +3,6 @@
  * ------------------------------------------------------------ */
 
 const express = require("express");
-const utils = require("../utils");
 const User = require("../models/user");
 const Bookshelf = require('../bookshelf');
 
@@ -24,13 +23,11 @@ router.get("/", (req, res) => {
       return Bookshelf.knex.raw(query, {id: user.id})
         .then(arr => {
           res.status(200).json(arr[0])
-          utils.logResponse(res); 
         })
     })
     .catch(err => {
       console.log("DB Query Error:", err.message);
       res.status(500).json({ message: "Error fetching data" });
-      utils.logResponse(res);
     })
 })
 
@@ -72,12 +69,10 @@ router.get("/check/:id", (req, res) => {
     })
     .then(result => {
       res.status(200).json({connectionCreated: !!result});
-      utils.logResponse(res);
     })
     .catch(err => {
       console.log("ERROR: HEAD to connections/", err.message);
       res.status(500).json({ message: "There was an error with the server" });
-      utils.logResponse(res);
     })
 })
 

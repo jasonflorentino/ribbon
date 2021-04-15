@@ -1,6 +1,8 @@
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
 const jwt = require("jsonwebtoken");
+const morgan = require("morgan");
+
 const utils = require("./utils");
 const loginRoutes = require("./routes/loginRoutes");
 const listRoutes = require("./routes/listRoutes");
@@ -9,31 +11,26 @@ const connectionRoutes = require("./routes/connectionRoutes");
 const giftRoutes = require("./routes/giftRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 const userRoutes = require("./routes/userRoutes");
-const Bookshelf = require('./bookshelf');
+const Bookshelf = require("./bookshelf");
 
-require('dotenv').config();
+require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 const JWT_SECRET = process.env.JWT_SECRET;
 const publicRoutes = ["/login", "/signup"]
+const isProd = false && process.env.NODE_ENV === "production";
 
 /*============
  * MIDDLEWARE 
  *============*/
 
+app.use(morgan(isProd ? "combined" : "dev"));
 app.use(cors());
 app.use(express.json());
-
-// Log incoming requests
-app.use((req, _res, next) => {
-  utils.logRequest(req);
-  next();
-})
 
 // Serve resquests for static assets
 app.use("/public", (req, res, next) => {
   express.static("public")(req, res, next);
-  utils.logResponse(res);
   return;
 });
 
@@ -43,12 +40,10 @@ app.use((req, res, next) => {
   else {
     if (!req.headers.authorization) {
       res.status(403).json({ message: "Not authorized: Authorization header required." });
-      return utils.logResponse(res);
     }
     const token = utils.getToken(req);
     if (!token) {
       res.status(403).json({ message: "Not authorized: No token." });
-      utils.logResponse(res); 
     } else {
       try {
         req.decode = jwt.verify(token, JWT_SECRET)
@@ -56,7 +51,6 @@ app.use((req, res, next) => {
       } catch (err) {
         console.log("JWT Verify Error:", err.message);
         res.status(403).json({ message: "Not authorized: Invalid token." });
-        utils.logResponse(res);
       }
     }
   }
@@ -74,7 +68,6 @@ app.get("/check-auth", (req, res) => {
   .then(result => {
     if (result[0].length === 0) {
       res.status(403).json({message: "Couldn't authenticate user"})
-      utils.logResponse(res); 
       return;
     }
     const data = result[0][0];
@@ -82,12 +75,10 @@ app.get("/check-auth", (req, res) => {
     req.decode.first_name = data.first_name;
     req.decode.list_id = data.list_id;
     res.status(200).json(req.decode)
-    utils.logResponse(res); 
   })
   .catch(err => {
     res.status(500).json({message: "There was an error with the server"})
     console.error(err);
-    utils.logResponse(res); 
   })
 });
 

@@ -6,7 +6,6 @@ const express = require("express");
 const path = require('path');
 const { v1: uuidv1 } = require('uuid');
 const fileUpload = require("express-fileupload");
-const utils = require("../utils");
 const Bookshelf = require("../bookshelf");
 
 const router = express.Router();
@@ -21,14 +20,12 @@ router.use(fileUpload({
 router.post("/user", (req, res) => {
   if (req.files === null) {
     res.status(400).json({message: "No file uploaded"});
-    utils.logResponse(res)
-    return;
+    return
   }
 
   if (!req.body || !req.body.userUuid) {
     res.status(400).json({message: "A user ID must be provided"});
-    utils.logResponse(res)
-    return;
+    return
   }
 
   const file = req.files.file;
@@ -46,11 +43,9 @@ router.post("/user", (req, res) => {
   ])
   .then(() => {
     res.status(200).json({fileName: file.name});
-    utils.logResponse(res);
   })
   .catch(err => {
     res.status(500).send(err);
-    utils.logResponse(res);
     console.error("/upload file.mv ERROR:", err);
   })
 })
@@ -62,14 +57,12 @@ router.post("/user", (req, res) => {
 router.post("/", (req, res) => {
   if (req.files === null) {
     res.status(400).json({message: "No file uploaded"});
-    utils.logResponse(res)
-    return;
+    return
   }
 
   if (!req.body || !req.body.giftId) {
     res.status(400).json({message: "You must provide a gift ID"});
-    utils.logResponse(res)
-    return;
+    return
   }
 
   const file = req.files.file;
@@ -89,11 +82,9 @@ router.post("/", (req, res) => {
   ])
   .then(() => {
     res.status(200).json({fileName: file.name});
-    utils.logResponse(res);
   })
   .catch(err => {
     res.status(500).send(err);
-    utils.logResponse(res);
     console.error("/upload file.mv ERROR:", err);
   })
 })

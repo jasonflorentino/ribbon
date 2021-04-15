@@ -6,7 +6,6 @@ const express = require("express");
 const path = require('path');
 const { v1: uuidv1 } = require('uuid');
 const fileUpload = require("express-fileupload");
-const utils = require("../utils");
 const Bookshelf = require("../bookshelf");
 
 const router = express.Router();
@@ -26,12 +25,10 @@ router.get("/:id", (req, res) => {
   Bookshelf.knex.raw(query, {id: id})
   .then(arr => {
     res.status(200).json(arr[0][0])
-    utils.logResponse(res); 
   })
   .catch(err => {
     console.log("ERROR in giftRoutes GET /:id - ", err.message);
     res.status(500).json({message: "Couldn't fetch data"})
-    utils.logResponse(res);
   })
 })
 
@@ -49,14 +46,12 @@ router.put("/:id/claim", (req, res) => {
   .then(() => {
     Bookshelf.knex.raw(query2, {itemId: itemId})
     .then(() => {
-      res.status(200).json({message: "Update successful"});
-      utils.logResponse(res); 
+      res.status(200).json({message: "Update successful"}); 
     })
   })
   .catch(err => {
     console.log("ERROR in giftRoutes PUT /:id/claim - ", err.message);
-    res.status(500).json({message: "Couldn't update data"})
-    utils.logResponse(res);
+    res.status(500).json({message: "Couldn't update data"});
   })
 })
 
@@ -69,14 +64,12 @@ router.put("/:id/release", (req, res) => {
   .then(() => {
     Bookshelf.knex.raw(query2, {itemId: itemId})
     .then(() => {
-      res.status(200).json({message: "Update successful"});
-      utils.logResponse(res); 
+      res.status(200).json({message: "Update successful"}); 
     })
   })
   .catch(err => {
     console.log("ERROR in giftRoutes PUT /:id/release - ", err.message);
-    res.status(500).json({message: "Couldn't update data"})
-    utils.logResponse(res);
+    res.status(500).json({message: "Couldn't update data"});
   })
 })
 
@@ -89,7 +82,6 @@ router.put("/:id/edit", (req, res) => {
     || req.body.price === undefined
   ) {
     res.status(400).json({message: "You must provide proper item details"});
-    utils.logResponse(res);
     return;
   }
 
@@ -111,11 +103,9 @@ router.put("/:id/edit", (req, res) => {
   ])
   .then((result) => {
     res.status(200).json({message: `${name} was updated successfully`});
-    utils.logResponse(res);
   })
   .catch(err => {
     res.status(500).send(err);
-    utils.logResponse(res);
     console.error(`/gifts/${gift_id}/edit DB ERROR:`, err);
   })
 })
@@ -127,13 +117,11 @@ router.put("/:id/edit", (req, res) => {
 router.post("/new", (req, res) => {
   if (req.files === null) {
     res.status(400).json({message: "No file uploaded"});
-    utils.logResponse(res)
     return;
   }
 
   if (!req.body || !req.body.itemDetails) {
     res.status(400).json({message: "You must provide proper item details"});
-    utils.logResponse(res)
     return;
   }
 
@@ -165,11 +153,10 @@ router.post("/new", (req, res) => {
       ])
     })
     .then(() => {
-      res.status(201).json({message: `Item ${gift_id} created successfully!`})
+      res.status(201).json({message: `Item ${gift_id} created successfully!`});
     })
     .catch(err => {
       res.status(500).send(err);
-      utils.logResponse(res);
       console.error("Create New Gift ERROR:", err);
     })
 })
@@ -185,13 +172,11 @@ router.delete("/:id", (req, res) => {
   Bookshelf.knex.raw(query, {id: id})
   .then(result => {
     console.log(result);
-    res.status(204).send();
-    utils.logResponse(res); 
+    res.status(204).send(); 
   })
   .catch(err => {
     console.log("ERROR in giftRoutes DELETE /:id - ", err.message);
-    res.status(500).json({message: "Couldn't delete gift"})
-    utils.logResponse(res);
+    res.status(500).json({message: "Couldn't delete gift"});
   })
 })
 

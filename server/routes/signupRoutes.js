@@ -6,7 +6,6 @@ const express = require("express");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require('uuid');
-const utils = require("../utils");
 const User = require("../models/user");
 const List = require("../models/list");
 const Person = require("../models/person");
@@ -22,16 +21,15 @@ router.post("/", (req, res) => {
   const { email, password } = req.body;
   
   if (!email || !password) {
-    res.status(400).json({ message: "An email and password must be provided" })
-    return utils.logResponse(res);
+    res.status(400).json({ message: "An email and password must be provided" });
+    return
   }
 
   User
     .where({ email: email })
     .fetch()
     .then(() => {
-      res.status(409).json({ message: "An account with this email already exists" })
-      utils.logResponse(res)
+      res.status(409).json({ message: "An account with this email already exists" });
     })
     .catch(() => {
       const uuid = uuidv4();
@@ -50,8 +48,7 @@ router.post("/", (req, res) => {
         new Person({user_id: newUser.id})
           .save().then(res => console.log("newPerson", res))
         const resBody = { token: jwt.sign({ user: newUser.attributes.uuid }, secret, {expiresIn: '1h'}) }
-        res.status(201).json(resBody)
-        utils.logResponse(res)
+        res.status(201).json(resBody);
       })
     });
 })

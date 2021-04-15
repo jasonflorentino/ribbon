@@ -3,7 +3,6 @@
  * ------------------------------------------------------------ */
 
 const express = require("express");
-const utils = require("../utils");
 const User = require("../models/user");
 const List = require("../models/list");
 const Gift = require("../models/gift");
@@ -23,13 +22,11 @@ router.get("/", (req, res) => {
 
   Bookshelf.knex.raw(query, {id: id})
   .then(data => {
-    res.status(200).json(data[0])
-    utils.logResponse(res); 
+    res.status(200).json(data[0]);
   })
   .catch(err => {
     console.log("DB Query Error:", err.message);
     res.status(500).json({ message: "Error fetching data" });
-    utils.logResponse(res);
   })
 })
 

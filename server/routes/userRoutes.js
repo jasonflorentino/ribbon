@@ -3,7 +3,6 @@
  * ------------------------------------------------------------ */
 
 const express = require("express");
-const utils = require("../utils");
 const Bookshelf = require("../bookshelf");
 
 const router = express.Router();
@@ -24,14 +23,12 @@ router.get("/:id", (req, res) => {
       return {items: arr1[0], user: arr2[0][0]}
     })
     .then(data => {
-      res.status(200).json(data)
-      utils.logResponse(res); 
+      res.status(200).json(data); 
     })
   })
   .catch(err => {
     console.log("ERROR in userRoutes GET /:id - ", err.message);
-    res.status(500).json({message: "Couldn't fetch data"})
-    utils.logResponse(res);
+    res.status(500).json({message: "Couldn't fetch data"});
   })
 })
 
@@ -49,8 +46,7 @@ router.get("/profile/:id", (req, res) => {
     })
     .catch(err => {
       console.log("ERROR in userRoutes GET /profile/:id - ", err.message);
-      res.status(500).json({message: "Couldn't fetch data"})
-      utils.logResponse(res);
+      res.status(500).json({message: "Couldn't fetch data"});
     })
 })
 
@@ -64,7 +60,6 @@ router.put("/:id", (req, res) => {
     || !req.body.last_name 
   ) {
     res.status(400).json({message: "You must provide proper user details"});
-    utils.logResponse(res);
     return;
   }
 
@@ -93,8 +88,7 @@ router.put("/:id", (req, res) => {
   })
   .catch(err => {
     console.log("ERROR in userRoutes PUT /:id - ", err.message);
-    res.status(500).json({message: "Couldn't update data"})
-    utils.logResponse(res);
+    res.status(500).json({message: "Couldn't update data"});
   })
 })
 
