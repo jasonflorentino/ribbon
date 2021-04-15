@@ -2,15 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const morgan = require("morgan");
-
 const utils = require("./utils");
-const loginRoutes = require("./routes/loginRoutes");
-const listRoutes = require("./routes/listRoutes");
-const signupRoutes = require("./routes/signupRoutes");
-const connectionRoutes = require("./routes/connectionRoutes");
-const giftRoutes = require("./routes/giftRoutes");
-const uploadRoutes = require("./routes/uploadRoutes");
-const userRoutes = require("./routes/userRoutes");
 const Bookshelf = require("./bookshelf");
 
 require("dotenv").config();
@@ -82,12 +74,12 @@ app.get("/check-auth", (req, res) => {
   })
 });
 
-app.use("/connections", connectionRoutes);
-app.use("/gifts", giftRoutes);
-app.use("/list", listRoutes);
-app.use("/login", loginRoutes);
-app.use("/signup", signupRoutes);
-app.use("/upload", uploadRoutes);
-app.use("/user", userRoutes);
+app.use("/connections", require("./routes/connectionRoutes"));
+app.use("/gifts", require("./routes/giftRoutes"));
+app.use("/list", require("./routes/listRoutes"));
+app.use("/login", require("./routes/loginRoutes"));
+app.use("/signup", require("./routes/signupRoutes"));
+app.use("/upload", require("./routes/uploadRoutes"));
+app.use("/user", require("./routes/userRoutes"));
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`))
