@@ -1,12 +1,14 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const morgan = require("morgan");
 const utils = require("./utils");
 const Bookshelf = require("./bookshelf");
+const errorHandler = require("./_helpers/errorHandler");
 
-require("dotenv").config();
 const app = express();
+
 const PORT = process.env.PORT || 8080;
 const JWT_SECRET = process.env.JWT_SECRET;
 const publicRoutes = ["/login", "/signup"]
@@ -53,7 +55,7 @@ app.use((req, res, next) => {
  *========*/
 
 // Provide user's info to front end from token
-app.get("/check-auth", (req, res) => {
+app.get("/check-auth", (req, res, next) => {
   const query = "SELECT p.image, p.first_name, l.id AS list_id FROM people AS p INNER JOIN users AS u LEFT JOIN lists AS l ON l.user_id = u.id WHERE p.user_id = u.id AND u.uuid = :uuid;";
 
   Bookshelf.knex.raw(query, {uuid: req.decode.user})
@@ -69,8 +71,8 @@ app.get("/check-auth", (req, res) => {
     res.status(200).json(req.decode)
   })
   .catch(err => {
-    res.status(500).json({message: "There was an error with the server"})
     console.error(err);
+    next(err);
   })
 });
 
@@ -81,5 +83,7 @@ app.use("/login", require("./routes/loginRoutes"));
 app.use("/signup", require("./routes/signupRoutes"));
 app.use("/upload", require("./routes/uploadRoutes"));
 app.use("/user", require("./routes/userRoutes"));
+
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`))
