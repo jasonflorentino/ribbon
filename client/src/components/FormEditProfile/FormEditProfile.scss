@@ -1,7 +1,10 @@
 @use "../../styles/variables" as *;
 @use "../../styles/mixins" as *;
+@use "../../styles/inputDate" as *;
 
 .FormEditProfile {
+  @include inputDate;
+  
   position: relative;
   flex: 1 1 0;
   padding: 0 1rem;
