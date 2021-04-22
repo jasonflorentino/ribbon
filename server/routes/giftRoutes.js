@@ -170,8 +170,7 @@ router.delete("/:id", (req, res) => {
   const query = "DELETE FROM gifts WHERE (id = :id);"
 
   Bookshelf.knex.raw(query, {id: id})
-  .then(result => {
-    console.log(result);
+  .then(() => {
     res.status(204).send(); 
   })
   .catch(err => {
