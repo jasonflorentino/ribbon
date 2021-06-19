@@ -1,60 +1,39 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
 const morgan = require("morgan");
-const utils = require("./utils");
 const Bookshelf = require("./bookshelf");
-const errorHandler = require("./_helpers/errorHandler");
+const { errorHandler } = require("./_helpers/errorHandler");
+const authenticate = require("./_helpers/authenticate");
 
 const app = express();
 
 const PORT = process.env.PORT || 8080;
-const JWT_SECRET = process.env.JWT_SECRET;
-const publicRoutes = ["/login", "/signup"]
 const isProd = false && process.env.NODE_ENV === "production";
 
-/*============
- * MIDDLEWARE 
- *============*/
 
+// Middlewares
 app.use(morgan(isProd ? "combined" : "dev"));
 app.use(cors());
 app.use(express.json());
 
-// Serve resquests for static assets
+
 app.use("/public", (req, res, next) => {
   express.static("public")(req, res, next);
   return;
 });
-
-// Verify JSON web token
-app.use((req, res, next) => {
-  if (publicRoutes.includes(req.url)) next();
-  else {
-    if (!req.headers.authorization) {
-      res.status(403).json({ message: "Not authorized: Authorization header required." });
-    }
-    const token = utils.getToken(req);
-    if (!token) {
-      res.status(403).json({ message: "Not authorized: No token." });
-    } else {
-      try {
-        req.decode = jwt.verify(token, JWT_SECRET)
-        next();
-      } catch (err) {
-        console.log("JWT Verify Error:", err.message);
-        res.status(403).json({ message: "Not authorized: Invalid token." });
-      }
-    }
-  }
-})
 
 /*========
  * ROUTES 
  *========*/
 
 // Provide user's info to front end from token
+
+
+app.use("/login", require("./routes/login"));
+app.use("/signup", require("./routes/signup"));
+app.use(authenticate);
+
 app.get("/check-auth", (req, res, next) => {
   const query = "SELECT p.image, p.first_name, l.id AS list_id FROM people AS p INNER JOIN users AS u LEFT JOIN lists AS l ON l.user_id = u.id WHERE p.user_id = u.id AND u.uuid = :uuid;";
 
