@@ -17,6 +17,10 @@ module.exports = [
   },
   {
     list_id: "",
+    name: "Torrentshell 3L Jacket",
+  },
+  {
+    list_id: "",
     name: "BrainStation Essential T-Shirt",
   },
   {
@@ -27,4 +31,5 @@ module.exports = [
     list_id: "",
     name: "My Sticker Pack",
   },
+
 ];

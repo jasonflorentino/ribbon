@@ -1,17 +1,20 @@
-const connectionsData = require("../seed_data/connections");
-
 exports.seed = function (knex) {
   return knex("connections")
     .del()
     .then(() => knex("users").pluck("id"))
     .then((userIds) => {
-      return connectionsData.map((conection, i) => {
-        // Connect everyone to each other
-        const j = (i < userIds.length-1) ? i+1 : 0;
-        conection.requester_id = userIds[i];
-        conection.addressee_id = userIds[j];
-        return conection;
-      });
+      const connections = [];
+      for (let i = 0; i < userIds.length; i++) {
+        for (let j = i+1; j < userIds.length; j++) {
+          const newConnection = {
+            requester_id: userIds[i],
+            addressee_id: userIds[j],
+            status: "accepted"
+          }
+          connections.push(newConnection);
+        }
+      }
+      return connections;
     })
     .then(updateConnectionsData => knex("connections").insert(updateConnectionsData));
 };

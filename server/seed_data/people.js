@@ -35,4 +35,13 @@ module.exports = [
     sizes: "String Instrument: XS, Animal Crossing Storage: 1600",
     image: "anton.jpeg"
   },
+  {
+    first_name: "Jason",
+    last_name: "Florentino",
+    date_of_birth: "1990-07-06",
+    interests: "Code, Photography",
+    allergies: "None",
+    sizes: "Tops XS/S, Shoe 9/9.5",
+    image: "jason.jpeg"
+  },
 ];

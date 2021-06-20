@@ -37,6 +37,15 @@ module.exports = [
   },
   {
     gift_id: "",
+    image: "torrentshell.jpeg",
+    price: 149,
+    color: "Mulch Brown",
+    size: "XS",
+    description: "The best raincoat I've ever owned!",
+    external_link: "https://www.patagonia.com/product/mens-torrentshell-3l-rain-jacket/85240.html?dwvar_85240_color=MULB&cgid=mens-new-jackets-vests",
+  },
+  {
+    gift_id: "",
     image: "essential-tshirt-black.jpeg",
     price: 40,
     color: "Black",

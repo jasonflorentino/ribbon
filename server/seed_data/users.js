@@ -19,4 +19,9 @@ module.exports = [
     password: "password",
     uuid: "65b01b42-0d1f-4042-a7f8-390ce1f99746",
   },
+  {
+    email: "jason@ribbon.io",
+    password: "password",
+    uuid: "282f2b1a-3a3d-414a-a66b-35d313f8e537",
+  },
 ];
