@@ -32,8 +32,6 @@ app.use("/check-auth", require("./routes/checkAuth"));
 app.use("/connections", require("./routes/connectionRoutes"));
 app.use("/gifts", require("./routes/giftRoutes"));
 app.use("/list", require("./routes/listRoutes"));
-app.use("/login", require("./routes/loginRoutes"));
-app.use("/signup", require("./routes/signupRoutes"));
 app.use("/upload", require("./routes/uploadRoutes"));
 app.use("/user", require("./routes/userRoutes"));
 

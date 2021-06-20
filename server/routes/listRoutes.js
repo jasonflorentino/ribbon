@@ -3,10 +3,6 @@
  * ------------------------------------------------------------ */
 
 const express = require("express");
-const User = require("../models/user");
-const List = require("../models/list");
-const Gift = require("../models/gift");
-const GiftDetail = require("../models/gift_detail");
 const Bookshelf = require("../bookshelf");
 
 const router = express.Router();
