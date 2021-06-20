@@ -50,33 +50,35 @@ function App()
     checkAuth();
   }, [isAuthenticated])
 
+  const getHomepage = (props) => {
+    if (isAuthenticated) return (
+      <Dashboard 
+        {...props} 
+        isAuthenticated={isAuthenticated} 
+        setIsAuthenticated={setIsAuthenticated} 
+        userDetails={userDetails} 
+      />
+    )
+    
+    else return (
+      <Home 
+        setIsAuthenticated={setIsAuthenticated} 
+        setIsLoading={setIsLoading} 
+      />
+    )
+  }
+
   return (
     <div className="App">
-      {isLoading ? <Loading /> :
-        (<BrowserRouter>
+      { isLoading ? (
+        <Loading />
+       ) : (
+        <BrowserRouter>
           <Switch>
-            <Route path="/" render={(props) => {
-              if (isAuthenticated) 
-              {
-                return <Dashboard 
-                  {...props} 
-                  isAuthenticated={isAuthenticated} 
-                  setIsAuthenticated={setIsAuthenticated} 
-                  userDetails={userDetails} 
-                />
-              } 
-              else 
-              {
-                return <Home 
-                  setIsAuthenticated={setIsAuthenticated} 
-                  setIsLoading={setIsLoading} 
-                />
-              }
-              }} 
-            />
+            <Route path="/" render={getHomepage} />
           </Switch>
-        </BrowserRouter>)
-      }
+        </BrowserRouter>
+      ) }
     </div>
   );
 }

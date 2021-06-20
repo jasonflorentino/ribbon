@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, Route, withRouter, Redirect } from "react-router-dom";
 import FadeIn from "react-fade-in";
 import Header from "../../components/Header/Header";
 import HeadingHero from "../../components/HeadingHero/HeadingHero";
@@ -57,6 +57,7 @@ function Home({location, setIsAuthenticated, setIsLoading})
             <Route path="/login" render={props => {
               return <Login {...props} setIsAuthenticated={setIsAuthenticated}  setIsLoading={setIsLoading} />
             }} />
+            <Route render={() => <Redirect to="/" />} />
           </Switch>
         </main>
         <MobileHomeActions login={showLogin} signUp={showSignUp} />

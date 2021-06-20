@@ -1,11 +1,31 @@
 import { useReducer } from "react";
+import { makeStyles } from '@material-ui/core/styles';
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { ThemeProvider } from "@material-ui/styles";
+import DayjsUtils from '@date-io/dayjs';
+
 import InputType from "../InputType/InputType";
 import "./FormEditProfile.scss";
 import axios from "axios";
 import utils from "../../utils";
+import theme from "../../styles/material-theme";
+
+const useStyles = makeStyles((theme) => ({
+  datePicker: {
+    backgroundColor: "#fcf6e6",
+    padding: ".5rem 1.5rem",
+    color: "#313133",
+    "border-radius": "2rem",
+    "margin-top": ".5rem",
+    "margin-bottom": ".5rem",
+    "font-family": "'filson-pro', Avenir, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+    "font-weight": 800
+  },
+}));
 
 function FormEditProfile({userData, userUuid})
 {
+  const classes = useStyles();
   const {
     first_name = "", 
     last_name = "", 
@@ -39,11 +59,20 @@ function FormEditProfile({userData, userUuid})
   const [formInput, setFormInput] = useReducer(reducer, initState)
 
   const handleChange = e => {
-    const { name, value }  = e.target;
-    setFormInput({ 
-      [name]: value,
-      [`${name}Error`]: false,
-    });
+    if (e.target) {
+      const { name, value }  = e.target;
+      setFormInput({ 
+        [name]: value,
+        [`${name}Error`]: false,
+      });
+    }
+    // Handle Material UI date change
+    else {
+      setFormInput({ 
+        date_of_birth: e.format('YYYY-MM-DD'),
+        date_of_birthError: false,
+      });
+    }
   }
 
   const handleSubmit = e => {
@@ -114,14 +143,21 @@ function FormEditProfile({userData, userUuid})
         </div>
       </div>
       <label className="FormEditProfile__label" htmlFor="date_of_birth">Birthday</label>
-      <input 
-        type="date" 
-        className="FormEditProfile__inputDate"
-        name={"date_of_birth"} 
-        onChange={handleChange}
-        value={formInput.date_of_birth} 
-        max={maxDate()}
-      />
+      <MuiPickersUtilsProvider utils={DayjsUtils}>
+        <ThemeProvider theme={theme}>
+          <DatePicker
+            className={classes.datePicker}
+            disableFuture
+            openTo="year"
+            format="YYYY/MM/DD"
+            views={["year", "month", "date"]}
+            name={"date_of_birth"}
+            value={formInput.date_of_birth}
+            onChange={handleChange}
+            maxDate={maxDate()}
+          />
+        </ThemeProvider>
+      </MuiPickersUtilsProvider>
       <label className="FormEditProfile__label" htmlFor="interests">Interests</label>
       <InputType 
         type="text" 

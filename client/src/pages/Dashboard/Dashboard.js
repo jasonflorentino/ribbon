@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import axios from "axios";
 import FadeIn from "react-fade-in";
 import Header from "../../components/Header/Header";
@@ -93,6 +93,7 @@ function Dashboard({userDetails, setIsAuthenticated})
                     setRequireUpdate={setRequireUpdate}
                   />
                 }} />
+                <Route render={() => <Redirect to="/" />} />
               </Switch>
             </section>
           </main>
