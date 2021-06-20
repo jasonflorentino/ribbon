@@ -52,31 +52,38 @@
   &--main {
     @extend .UserImage;
     width: 6rem;
+    height: 6rem;
   
     @include tablet {
       width: 7.5rem;
+      height: 7.5rem;
     }
     
     @include desktop {
       width: 9rem;
+      height: 9rem;
     }
   }
 
   &--sidebar {
     @extend .UserImage;
     width: 6rem;
+    height: 6rem;
   
     @include tablet {
       width: 4.5rem;
+      height: 4.5rem;
       margin-bottom: .25rem;
     }
 
     @include tablet_800 {
       width: 5.5rem;
+      height: 5.5rem;
     }
     
     @include desktop {
       width: 6.5rem;
+      height: 6.5rem;
     }
 
     &:hover {
