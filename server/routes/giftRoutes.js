@@ -7,6 +7,7 @@ const path = require('path');
 const { v1: uuidv1 } = require('uuid');
 const fileUpload = require("express-fileupload");
 const Bookshelf = require("../bookshelf");
+const { unlink } = require('fs/promises');
 
 const router = express.Router();
 
@@ -167,16 +168,25 @@ router.post("/new", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
-  const query = "DELETE FROM gifts WHERE (id = :id);"
+  const queryImageName = "SELECT image FROM gift_details WHERE (gift_id = :id);"
+  const queryGift = "DELETE FROM gifts WHERE (id = :id);"
 
-  Bookshelf.knex.raw(query, {id: id})
-  .then(() => {
-    res.status(204).send(); 
-  })
-  .catch(err => {
-    console.log("ERROR in giftRoutes DELETE /:id - ", err.message);
-    res.status(500).json({message: "Couldn't delete gift"});
-  })
+  Bookshelf.knex.raw(queryImageName, {id: id})
+    .then(result => {
+      const filename = result[0][0].image;
+      const filepath = path.join(__dirname, `../public/${filename}`);
+      return unlink(filepath);
+    })
+    .then(() => {
+      return Bookshelf.knex.raw(queryGift, {id: id});
+    })
+    .then(() => {
+      res.status(204).send(); 
+    })
+    .catch(err => {
+      console.log("ERROR in giftRoutes DELETE /:id - ", err.message);
+      res.status(500).json({message: "An error occurred while trying to delete gift"});
+    })
 })
 
 module.exports = router;
