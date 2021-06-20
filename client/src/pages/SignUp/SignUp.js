@@ -10,6 +10,10 @@ function SignUp({setIsAuthenticated, history, setIsLoading})
   const [errorMessage, setErrorMessage] = useState("");
 
   const requestSignUp = (email, password) => {
+    alert("Sorry! I've turned off Signup for now.\n—Jason");
+    return;
+    // eslint-disable-next-line
+    
     const url = process.env.REACT_APP_API_URL + "/signup";
     axios
       .post(url, {

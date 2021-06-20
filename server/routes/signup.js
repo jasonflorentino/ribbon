@@ -22,6 +22,8 @@ function signup(req, res, next) {
 
 // Service
 async function signupService(body) {
+  throw error(503, "This service is currently unavailable.");
+
   const { email, password } = body;
   
   if (!email || !password) {
