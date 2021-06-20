@@ -12,7 +12,7 @@ const { unlink } = require('fs/promises');
 const router = express.Router();
 
 router.use(fileUpload({
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
+  limits: { fileSize: 1 * 1024 * 1024 }, // 1MB
 }));
 
 /* ------------------------------------------------------------
