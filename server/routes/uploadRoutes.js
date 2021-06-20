@@ -10,7 +10,7 @@ const Bookshelf = require("../bookshelf");
 
 const router = express.Router();
 router.use(fileUpload({
-  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
+  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
 }));
 
 /* ------------------------------------------------------------
