@@ -55,7 +55,7 @@ function Home({location, setIsAuthenticated, setIsLoading})
               return <SignUp {...props} setIsAuthenticated={setIsAuthenticated} setIsLoading={setIsLoading} />
             }} />
             <Route path="/login" render={props => {
-              return <Login {...props} setIsAuthenticated={setIsAuthenticated}  setIsLoading={setIsLoading} />
+              return <Login {...props} setIsAuthenticated={setIsAuthenticated} />
             }} />
             <Route render={() => <Redirect to="/" />} />
           </Switch>

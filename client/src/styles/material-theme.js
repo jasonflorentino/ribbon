@@ -1,5 +1,10 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
+const colors = {
+  red: '#ff5652',
+  blue: '#112be7'
+}
+
 const theme = createMuiTheme({
   palette: {
     common: {
@@ -7,11 +12,18 @@ const theme = createMuiTheme({
       white: "#fcf6e6",
     },
     primary: {
-      main: '#ff5652',
+      main: colors.red,
       contrastText: "#fcf6e6"
+    },
+    secondary: {
+      main: colors.blue,
+      contrastText: "#ffffff"
     },
     background: {
       paper: "#fcf6e6",
+    },
+    text: {
+      primary: colors.red,
     }
   },
   typography: {
@@ -26,7 +38,10 @@ const theme = createMuiTheme({
       'Arial',
       'sans-serif',
     ].join(','),
-    fontWeightRegular: 700
+    h6: {
+      fontWeight: 700,
+    },
+    fontWeightRegular: 700,
   },
 });
 

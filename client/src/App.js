@@ -23,21 +23,24 @@ function App()
         }
       })
       .then(res => {
-        if (res.status === 200) {
-          setIsAuthenticated(true);
-          setUserDetails({
-            id: res.data.user,
-            first_name: res.data.first_name,
-            image: res.data.image,
-            list_id: res.data.list_id
-          });
-        } else {
-          throw new Error("Bad response");
-        }
+        return new Promise((resolve, reject) => {
+          if (res.status === 200) {
+            setIsAuthenticated(true);
+            setUserDetails({
+              id: res.data.user,
+              first_name: res.data.first_name,
+              image: res.data.image,
+              list_id: res.data.list_id
+            });
+            resolve();
+          } else {
+            reject(new Error("Bad response"));
+          }
+        })
       }).then(() => {
         setIsLoading(false);
       })
-      .catch(err => {
+      .catch(() => {
         setIsLoading(false);
         setIsAuthenticated(false);
         if (window.location.pathname !== "/") {

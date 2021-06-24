@@ -4,10 +4,16 @@ import FadeIn from "react-fade-in";
 import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
 import InputType from '../InputType/InputType';
 import InputError from '../InputError/InputError';
+import Loading from '../Loading/Loading';
 import utils from "../../utils";
 import "./FormLogin.scss";
 
-function FormLogin({requestLogin, isLoginError, errorMessage, setIsLoginError})
+function FormLogin({
+  requestLogin, 
+  isLoginError, 
+  errorMessage, 
+  setIsLoginError, 
+  isLoading})
 {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,28 +45,34 @@ function FormLogin({requestLogin, isLoginError, errorMessage, setIsLoginError})
         className="FormLogin"
         onSubmit={e => handleSubmit(e)}
       >
-        <h1 className="FormLogin__heading">Let's get giftin'</h1>
-        <InputType
-          type={"text"}
-          name={"email"}
-          value={email} 
-          placeholder={"Your email"} 
-          onChange={e => handleEmailChange(e)}  
-          error={isEmailError}
-          errorMsg="You must enter a valid email"
-        />
-        <InputType
-          type={"password"}
-          name={"password"}
-          value={password} 
-          placeholder={"Password"} 
-          onChange={e => handlePasswordChange(e)}  
-          error={isPasswordError}
-          errorMsg="You must provide a password"
-        />
-        <Link to="/" className="FormLogin__forgotPassword">Forgot password?</Link>
-        <ButtonPrimary className="FormLogin__button" text="Login" error={isLoginError} />
-        {isLoginError && <InputError text={errorMessage} />}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <h1 className="FormLogin__heading">Let's get giftin'</h1>
+          <InputType
+            type={"text"}
+            name={"email"}
+            value={email} 
+            placeholder={"Your email"} 
+            onChange={e => handleEmailChange(e)}  
+            error={isEmailError}
+            errorMsg="You must enter a valid email"
+          />
+          <InputType
+            type={"password"}
+            name={"password"}
+            value={password} 
+            placeholder={"Password"} 
+            onChange={e => handlePasswordChange(e)}  
+            error={isPasswordError}
+            errorMsg="You must provide a password"
+          />
+          <Link to="#" className="FormLogin__forgotPassword">Forgot password?</Link>
+          <ButtonPrimary className="FormLogin__button" text="Login" error={isLoginError} />
+          {isLoginError && <InputError text={errorMessage} />}
+        </>
+      )}
       </form>
     </FadeIn>
   )

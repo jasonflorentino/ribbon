@@ -1,14 +1,12 @@
 import { useReducer } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import { ThemeProvider } from "@material-ui/styles";
 import DayjsUtils from '@date-io/dayjs';
 
 import InputType from "../InputType/InputType";
 import "./FormEditProfile.scss";
 import axios from "axios";
 import utils from "../../utils";
-import theme from "../../styles/material-theme";
 
 const useStyles = makeStyles((theme) => ({
   datePicker: {
@@ -144,19 +142,17 @@ function FormEditProfile({userData, userUuid})
       </div>
       <label className="FormEditProfile__label" htmlFor="date_of_birth">Birthday</label>
       <MuiPickersUtilsProvider utils={DayjsUtils}>
-        <ThemeProvider theme={theme}>
-          <DatePicker
-            className={classes.datePicker}
-            disableFuture
-            openTo="year"
-            format="YYYY/MM/DD"
-            views={["year", "month", "date"]}
-            name={"date_of_birth"}
-            value={formInput.date_of_birth}
-            onChange={handleChange}
-            maxDate={maxDate()}
-          />
-        </ThemeProvider>
+        <DatePicker
+          className={classes.datePicker}
+          disableFuture
+          openTo="year"
+          format="YYYY/MM/DD"
+          views={["year", "month", "date"]}
+          name={"date_of_birth"}
+          value={formInput.date_of_birth}
+          onChange={handleChange}
+          maxDate={maxDate()}
+        />
       </MuiPickersUtilsProvider>
       <label className="FormEditProfile__label" htmlFor="interests">Interests</label>
       <InputType 
