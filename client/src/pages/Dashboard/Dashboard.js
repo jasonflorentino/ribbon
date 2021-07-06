@@ -38,10 +38,6 @@ function Dashboard({userDetails, setIsAuthenticated})
       setListItems(listRes.data);
       setConnections(connectsRes.data);
     }))
-    .then(() => {
-      setRequireUpdate(false);
-      setLoading(false);
-    })
     .catch(err => {
       console.log(err);
       setRequireUpdate(false);
@@ -49,7 +45,18 @@ function Dashboard({userDetails, setIsAuthenticated})
     })
   }, [requireUpdate])
 
-  return loading ? <Loading /> :
+  useEffect(() => {
+    if (listItems.length
+      && connections.length
+      && loading
+      && requireUpdate) {
+      setRequireUpdate(false);
+      setLoading(false);
+    }
+    // eslint-disable-next-line
+  }, [listItems, connections])
+
+  return loading || !userDetails ? <Loading /> :
     (
       <div className="Dashboard">
         <FadeIn className="Dashboard__fadeContainer">
@@ -63,36 +70,34 @@ function Dashboard({userDetails, setIsAuthenticated})
             </section>
             <section className="main__content">
               <Switch>
-                <Route path="/" exact render={_props => {
-                  return (
-                    <FadeIn>
-                      <DashboardHeader userDetails={userDetails} />
-                      <ItemGrid items={listItems} isOwner={true} />
-                    </FadeIn>
-                  )
-                }} />
-                <Route path="/item/new" render={props => {
-                  return <ItemNew {...props} userDetails={userDetails} setRequireUpdate={setRequireUpdate} />
-                }} />
-                <Route path="/item/:id/edit" render={props => {
-                  return <ItemDetailsEdit {...props} setRequireUpdate={setRequireUpdate} />
-                }} />
-                <Route path="/item/:id" render={props => {
-                  return <ItemDetails {...props} userDetails={userDetails} />
-                }} />
-                <Route path="/user/profile/edit" render={props => {
-                  return <UserProfileEdit {...props} userDetails={userDetails} />
-                }} />
-                <Route path="/user/profile/:id" render={props => {
-                  return <UserProfile {...props} userDetails={userDetails} />
-                }} />
-                <Route path="/user/:id" render={props => {
-                  return <UserList 
+                <Route path="/" exact render={_props => (
+                  <FadeIn>
+                    <DashboardHeader userDetails={userDetails} />
+                    <ItemGrid items={listItems} isOwner={true} />
+                  </FadeIn>
+                )} />
+                <Route path="/item/new" render={props => (
+                  <ItemNew {...props} userDetails={userDetails} setRequireUpdate={setRequireUpdate} />
+                )} />
+                <Route path="/item/:id/edit" render={props => (
+                  <ItemDetailsEdit {...props} setRequireUpdate={setRequireUpdate} />
+                )} />
+                <Route path="/item/:id" render={props => (
+                  <ItemDetails {...props} userDetails={userDetails} />
+                )} />
+                <Route path="/user/profile/edit" render={props => (
+                  <UserProfileEdit {...props} userDetails={userDetails} />
+                )} />
+                <Route path="/user/profile/:id" render={props => (
+                  <UserProfile {...props} userDetails={userDetails} />
+                )} />
+                <Route path="/user/:id" render={props => (
+                  <UserList 
                     {...props} 
                     userDetails={userDetails}
                     setRequireUpdate={setRequireUpdate}
                   />
-                }} />
+                )} />
                 <Route render={() => <Redirect to="/" />} />
               </Switch>
             </section>
