@@ -10,8 +10,12 @@ import SignUp from "../SignUp/SignUp";
 
 import "./Home.scss";
 
-function Home({location, setIsAuthenticated, setIsLoading})
-{ 
+function Home({
+  location, 
+  setIsAuthenticated, 
+  isAuthenticated, 
+  setIsLoading
+}) { 
   const [showLogin, setShowLogin] = useState(true);
   const [showSignUp, setShowSignUp] = useState(true);
   const [colorTheme, setColorTheme] = useState("positive");
@@ -51,12 +55,12 @@ function Home({location, setIsAuthenticated, setIsLoading})
               <h2 className="Home__subheading">The gifts they want with no loose ends.</h2>
               <img className="Home__balloons" src={Balloons} alt="Balloon graphic" />
             </Route>
-            <Route path="/signup" render={props => {
-              return <SignUp {...props} setIsAuthenticated={setIsAuthenticated} setIsLoading={setIsLoading} />
-            }} />
-            <Route path="/login" render={props => {
-              return <Login {...props} setIsAuthenticated={setIsAuthenticated} />
-            }} />
+            <Route path="/signup" render={props => (
+              <SignUp {...props} setIsAuthenticated={setIsAuthenticated} setIsLoading={setIsLoading} />
+            )} />
+            <Route path="/login" render={props => (
+              <Login {...props} setIsAuthenticated={setIsAuthenticated} />
+            )} />
             <Route render={() => <Redirect to="/" />} />
           </Switch>
         </main>

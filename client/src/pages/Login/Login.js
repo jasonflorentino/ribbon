@@ -3,7 +3,7 @@ import axios from "axios";
 import FormLogin from "../../components/FormLogin/FormLogin";
 import "./Login.scss";
 
-function Login({setIsAuthenticated, history})
+function Login({ setIsAuthenticated })
 {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoginError, setIsLoginError] = useState(false);
@@ -19,10 +19,7 @@ function Login({setIsAuthenticated, history})
       })
       .then((res) => {
         sessionStorage.setItem("authToken", res.data.token);
-        setIsLoginError(false);
         setIsAuthenticated(true);
-        setIsLoading(false);
-        history.push("/")
       })
       .catch((err) => {
         setErrorMessage(err.response && err.response.data.message);
